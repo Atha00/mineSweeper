@@ -128,17 +128,12 @@ function App() {
     }
   };
 
-  const emptySlotDiscover = (array, index, checkedSquares) => {
-    let aroundArray = [
-      index - 10,
-      index - 9,
-      index - 8,
-      index - 1,
-      index + 1,
-      index + 8,
-      index + 9,
-      index + 10
-    ];
+  const discoveringAroundEmptySlot = (
+    aroundArray,
+    array,
+    checkedSquares,
+    func
+  ) => {
     for (let i = 0; i < aroundArray.length; i++) {
       if (
         array[aroundArray[i]] &&
@@ -152,9 +147,135 @@ function App() {
     for (let j = 0; j < checkedSquares.length; j++) {
       if (array[checkedSquares[j]].value === "") {
         let nextCheckedSquares = [];
-        emptySlotDiscover(array, checkedSquares[j], nextCheckedSquares);
+        func(array, checkedSquares[j], nextCheckedSquares);
       }
     }
+  };
+
+  const emptySlotDiscover = (array, index, checkedSquares) => {
+    if (index === 0) {
+      let aroundArray = [index + 1, index + 9, index + 10];
+      discoveringAroundEmptySlot(
+        aroundArray,
+        array,
+        checkedSquares,
+        emptySlotDiscover
+      );
+    } else if (index === 8) {
+      let aroundArray = [index - 1, index + 8, index + 9];
+      discoveringAroundEmptySlot(
+        aroundArray,
+        array,
+        checkedSquares,
+        emptySlotDiscover
+      );
+    } else if (index === 72) {
+      let aroundArray = [index - 9, index - 8, index + 1];
+      discoveringAroundEmptySlot(
+        aroundArray,
+        array,
+        checkedSquares,
+        emptySlotDiscover
+      );
+    } else if (index === 80) {
+      let aroundArray = [index - 10, index - 9, index - 1];
+      discoveringAroundEmptySlot(
+        aroundArray,
+        array,
+        checkedSquares,
+        emptySlotDiscover
+      );
+    } else if (index > 0 && index < 8) {
+      let aroundArray = [
+        index - 1,
+        index + 1,
+        index + 8,
+        index + 9,
+        index + 10
+      ];
+      discoveringAroundEmptySlot(
+        aroundArray,
+        array,
+        checkedSquares,
+        emptySlotDiscover
+      );
+    } else if (index % 9 === 0 && index !== 0 && index !== 72) {
+      let aroundArray = [
+        index - 9,
+        index - 8,
+        index + 1,
+        index + 9,
+        index + 10
+      ];
+      discoveringAroundEmptySlot(
+        aroundArray,
+        array,
+        checkedSquares,
+        emptySlotDiscover
+      );
+    } else if (index % 9 === 8 && index !== 8 && index !== 80) {
+      let aroundArray = [
+        index - 10,
+        index - 9,
+        index - 1,
+        index + 8,
+        index + 9
+      ];
+      discoveringAroundEmptySlot(
+        aroundArray,
+        array,
+        checkedSquares,
+        emptySlotDiscover
+      );
+    } else if (index > 72 && index < 80) {
+      let aroundArray = [
+        index - 10,
+        index - 9,
+        index - 8,
+        index - 1,
+        index + 1
+      ];
+      discoveringAroundEmptySlot(
+        aroundArray,
+        array,
+        checkedSquares,
+        emptySlotDiscover
+      );
+    } else {
+      let aroundArray = [
+        index - 10,
+        index - 9,
+        index - 8,
+        index - 1,
+        index + 1,
+        index + 8,
+        index + 9,
+        index + 10
+      ];
+      discoveringAroundEmptySlot(
+        aroundArray,
+        array,
+        checkedSquares,
+        emptySlotDiscover
+      );
+    }
+
+    // for (let i = 0; i < aroundArray.length; i++) {
+    //   if (
+    //     array[aroundArray[i]] &&
+    //     array[aroundArray[i]].clicked === false &&
+    //     array[aroundArray[i]].value !== "M"
+    //   ) {
+    //     array[aroundArray[i]].clicked = !array[aroundArray[i]].clicked;
+    //     checkedSquares.push(aroundArray[i]);
+    //   }
+    // }
+    // for (let j = 0; j < checkedSquares.length; j++) {
+    //   if (array[checkedSquares[j]].value === "") {
+    //     let nextCheckedSquares = [];
+    //     emptySlotDiscover(array, checkedSquares[j], nextCheckedSquares);
+    //   }
+    // }
     return array;
   };
 
