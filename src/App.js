@@ -109,6 +109,14 @@ function App() {
           setUpNumbers(aroundArray, rawFillingArray, i, count, index);
         }
       }
+      if (rawFillingArray[index].value === "") {
+        let checkedSquares = [];
+        rawFillingArray = emptySlotDiscover(
+          rawFillingArray,
+          index,
+          checkedSquares
+        );
+      }
       setSquaresValues(rawFillingArray);
       setIsBoardSet(!isBoardSet);
     } else {
@@ -259,23 +267,6 @@ function App() {
         emptySlotDiscover
       );
     }
-
-    // for (let i = 0; i < aroundArray.length; i++) {
-    //   if (
-    //     array[aroundArray[i]] &&
-    //     array[aroundArray[i]].clicked === false &&
-    //     array[aroundArray[i]].value !== "M"
-    //   ) {
-    //     array[aroundArray[i]].clicked = !array[aroundArray[i]].clicked;
-    //     checkedSquares.push(aroundArray[i]);
-    //   }
-    // }
-    // for (let j = 0; j < checkedSquares.length; j++) {
-    //   if (array[checkedSquares[j]].value === "") {
-    //     let nextCheckedSquares = [];
-    //     emptySlotDiscover(array, checkedSquares[j], nextCheckedSquares);
-    //   }
-    // }
     return array;
   };
 
