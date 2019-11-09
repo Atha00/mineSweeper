@@ -1,6 +1,6 @@
-.square-clicked {
+.square-revealed {
   background: #fff;
-  border: 1px solid #999;
+  /* border: 1px solid #999; */
   float: left;
   font-size: 24px;
   font-weight: bold;
@@ -12,9 +12,23 @@
   text-align: center;
   width: 34px;
 }
-.square-unclicked {
+.square-hide {
+  background: green;
+  /* border: 1px solid #999; */
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+.square-locked {
   background: red;
-  border: 1px solid #999;
+  /* border: 1px solid #999; */
   float: left;
   font-size: 24px;
   font-weight: bold;

@@ -5,7 +5,7 @@ import Board from "./components/board";
 function App() {
   let emptyFilling = [];
   for (let i = 0; i < 81; i++) {
-    emptyFilling.push({ value: "", clicked: false });
+    emptyFilling.push({ value: "", clicked: "hide" });
   }
 
   const [squaresValues, setSquaresValues] = useState(emptyFilling);
@@ -39,9 +39,9 @@ function App() {
     }
     if (count !== 0 && rawFillingArray[i].value !== "M") {
       if (i !== index) {
-        rawFillingArray.splice(i, 1, { value: count, clicked: false });
+        rawFillingArray.splice(i, 1, { value: count, clicked: "hide" });
       } else {
-        rawFillingArray.splice(i, 1, { value: count, clicked: true });
+        rawFillingArray.splice(i, 1, { value: count, clicked: "revealed" });
       }
     }
   };
@@ -55,7 +55,7 @@ function App() {
       for (let i = 0; i < setMinesArray.length; i++) {
         rawFillingArray.splice(setMinesArray[i], 1, {
           value: "M",
-          clicked: false
+          clicked: "hide"
         });
       }
 
@@ -120,8 +120,8 @@ function App() {
       setIsBoardSet(!isBoardSet);
     } else {
       let rawFillingArray = [...squaresValues];
-      if (rawFillingArray[index].clicked === false) {
-        rawFillingArray[index].clicked = !rawFillingArray[index].clicked;
+      if (rawFillingArray[index].clicked === "hide") {
+        rawFillingArray[index].clicked = "revealed";
         if (rawFillingArray[index].value === "") {
           let checkedSquares = [];
           rawFillingArray = emptySlotDiscover(
@@ -144,10 +144,10 @@ function App() {
     for (let i = 0; i < aroundArray.length; i++) {
       if (
         array[aroundArray[i]] &&
-        array[aroundArray[i]].clicked === false &&
+        array[aroundArray[i]].clicked === "hide" &&
         array[aroundArray[i]].value !== "M"
       ) {
-        array[aroundArray[i]].clicked = !array[aroundArray[i]].clicked;
+        array[aroundArray[i]].clicked = "revealed";
         checkedSquares.push(aroundArray[i]);
       }
     }
@@ -270,7 +270,13 @@ function App() {
   };
 
   const foundMine = index => {
-    console.log(index);
+    let rawFillingArray = [...squaresValues];
+    if (rawFillingArray[index].clicked === "hide") {
+      rawFillingArray[index].clicked = "locked";
+    } else if (rawFillingArray[index].clicked === "locked") {
+      rawFillingArray[index].clicked = "hide";
+    }
+    setSquaresValues(rawFillingArray);
   };
 
   return (

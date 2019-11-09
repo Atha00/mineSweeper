@@ -3,11 +3,17 @@ import "./style.css";
 
 function Square(props) {
   const renderingClick = (value, clicked) => {
-    return clicked ? value : null;
+    return clicked === "revealed" ? value : null;
   };
   return (
     <button
-      className={props.clicked ? `square-clicked` : `square-unclicked`}
+      className={
+        props.clicked === "revealed"
+          ? `square-revealed`
+          : props.clicked === "locked"
+          ? `square-locked`
+          : `square-hide`
+      }
       onClick={() => {
         props.onClickSquare(props.index);
       }}
