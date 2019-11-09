@@ -49,7 +49,6 @@ function App() {
   const showSquare = index => {
     if (!isBoardSet) {
       let rawFillingArray = [...squaresValues];
-      // rawFillingArray.splice(index, 1, { value: "", clicked: true });
 
       //set-up des mines
       let setMinesArray = randomNumbersGeneration(index);
@@ -270,9 +269,17 @@ function App() {
     return array;
   };
 
+  const foundMine = index => {
+    console.log(index);
+  };
+
   return (
     <div className="App">
-      <Board value={squaresValues} onClickSquare={showSquare} />
+      <Board
+        value={squaresValues}
+        onClickSquare={showSquare}
+        onRightClickSquare={foundMine}
+      />
     </div>
   );
 }

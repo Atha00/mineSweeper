@@ -10,6 +10,7 @@ function Board(props) {
         value={props.value[index - 1].value}
         clicked={props.value[index - 1].clicked}
         onClickSquare={props.onClickSquare}
+        onRightClickSquare={props.onRightClickSquare}
         index={index - 1}
       />
     );

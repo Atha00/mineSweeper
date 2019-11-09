@@ -11,6 +11,10 @@ function Square(props) {
       onClick={() => {
         props.onClickSquare(props.index);
       }}
+      onContextMenu={event => {
+        event.preventDefault();
+        props.onRightClickSquare(props.index);
+      }}
     >
       {renderingClick(props.value, props.clicked)}
     </button>
