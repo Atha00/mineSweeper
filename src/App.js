@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import Board from "./components/board";
+import RefreshIcon from "./components/refreshIcon";
 
 function App() {
   let emptyFilling = [];
@@ -10,6 +11,8 @@ function App() {
 
   const [squaresValues, setSquaresValues] = useState(emptyFilling);
   const [isBoardSet, setIsBoardSet] = useState(false);
+  const [endGame, setEndGame] = useState(false);
+  const [mineCounter, setMineCounter] = useState(10);
 
   const randomNumbersGeneration = firstClickIndex => {
     let tab = [];
@@ -47,81 +50,68 @@ function App() {
   };
 
   const showSquare = index => {
-    if (!isBoardSet) {
-      let rawFillingArray = [...squaresValues];
+    if (!endGame) {
+      if (!isBoardSet) {
+        let rawFillingArray = [...squaresValues];
 
-      //set-up des mines
-      let setMinesArray = randomNumbersGeneration(index);
-      for (let i = 0; i < setMinesArray.length; i++) {
-        rawFillingArray.splice(setMinesArray[i], 1, {
-          value: "M",
-          clicked: "hide"
-        });
-      }
-
-      //set-up des chiffres
-      for (let i = 0; i < rawFillingArray.length; i++) {
-        if (i === 0) {
-          let count = 0;
-          let aroundArray = [i + 1, i + 9, i + 10];
-          setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-        } else if (i === 8) {
-          let count = 0;
-          let aroundArray = [i - 1, i + 8, i + 9];
-          setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-        } else if (i === 72) {
-          let count = 0;
-          let aroundArray = [i - 9, i - 8, i + 1];
-          setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-        } else if (i === 80) {
-          let count = 0;
-          let aroundArray = [i - 10, i - 9, i - 1];
-          setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-        } else if (i > 0 && i < 8) {
-          let count = 0;
-          let aroundArray = [i - 1, i + 1, i + 8, i + 9, i + 10];
-          setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-        } else if (i % 9 === 0 && i !== 0 && i !== 72) {
-          let count = 0;
-          let aroundArray = [i - 9, i - 8, i + 1, i + 9, i + 10];
-          setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-        } else if (i % 9 === 8 && i !== 8 && i !== 80) {
-          let count = 0;
-          let aroundArray = [i - 10, i - 9, i - 1, i + 8, i + 9];
-          setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-        } else if (i > 72 && i < 80) {
-          let count = 0;
-          let aroundArray = [i - 10, i - 9, i - 8, i - 1, i + 1];
-          setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-        } else {
-          let count = 0;
-          let aroundArray = [
-            i - 10,
-            i - 9,
-            i - 8,
-            i - 1,
-            i + 1,
-            i + 8,
-            i + 9,
-            i + 10
-          ];
-          setUpNumbers(aroundArray, rawFillingArray, i, count, index);
+        //set-up des mines
+        let setMinesArray = randomNumbersGeneration(index);
+        for (let i = 0; i < setMinesArray.length; i++) {
+          rawFillingArray.splice(setMinesArray[i], 1, {
+            value: "M",
+            clicked: "hide"
+          });
         }
-      }
-      if (rawFillingArray[index].value === "") {
-        let checkedSquares = [];
-        rawFillingArray = emptySlotDiscover(
-          rawFillingArray,
-          index,
-          checkedSquares
-        );
-      }
-      setSquaresValues(rawFillingArray);
-      setIsBoardSet(!isBoardSet);
-    } else {
-      let rawFillingArray = [...squaresValues];
-      if (rawFillingArray[index].clicked === "hide") {
-        rawFillingArray[index].clicked = "revealed";
+
+        //set-up des chiffres
+        for (let i = 0; i < rawFillingArray.length; i++) {
+          if (i === 0) {
+            let count = 0;
+            let aroundArray = [i + 1, i + 9, i + 10];
+            setUpNumbers(aroundArray, rawFillingArray, i, count, index);
+          } else if (i === 8) {
+            let count = 0;
+            let aroundArray = [i - 1, i + 8, i + 9];
+            setUpNumbers(aroundArray, rawFillingArray, i, count, index);
+          } else if (i === 72) {
+            let count = 0;
+            let aroundArray = [i - 9, i - 8, i + 1];
+            setUpNumbers(aroundArray, rawFillingArray, i, count, index);
+          } else if (i === 80) {
+            let count = 0;
+            let aroundArray = [i - 10, i - 9, i - 1];
+            setUpNumbers(aroundArray, rawFillingArray, i, count, index);
+          } else if (i > 0 && i < 8) {
+            let count = 0;
+            let aroundArray = [i - 1, i + 1, i + 8, i + 9, i + 10];
+            setUpNumbers(aroundArray, rawFillingArray, i, count, index);
+          } else if (i % 9 === 0 && i !== 0 && i !== 72) {
+            let count = 0;
+            let aroundArray = [i - 9, i - 8, i + 1, i + 9, i + 10];
+            setUpNumbers(aroundArray, rawFillingArray, i, count, index);
+          } else if (i % 9 === 8 && i !== 8 && i !== 80) {
+            let count = 0;
+            let aroundArray = [i - 10, i - 9, i - 1, i + 8, i + 9];
+            setUpNumbers(aroundArray, rawFillingArray, i, count, index);
+          } else if (i > 72 && i < 80) {
+            let count = 0;
+            let aroundArray = [i - 10, i - 9, i - 8, i - 1, i + 1];
+            setUpNumbers(aroundArray, rawFillingArray, i, count, index);
+          } else {
+            let count = 0;
+            let aroundArray = [
+              i - 10,
+              i - 9,
+              i - 8,
+              i - 1,
+              i + 1,
+              i + 8,
+              i + 9,
+              i + 10
+            ];
+            setUpNumbers(aroundArray, rawFillingArray, i, count, index);
+          }
+        }
         if (rawFillingArray[index].value === "") {
           let checkedSquares = [];
           rawFillingArray = emptySlotDiscover(
@@ -131,6 +121,28 @@ function App() {
           );
         }
         setSquaresValues(rawFillingArray);
+        setIsBoardSet(!isBoardSet);
+      } else {
+        let rawFillingArray = [...squaresValues];
+        if (rawFillingArray[index].clicked === "hide") {
+          rawFillingArray[index].clicked = "revealed";
+          if (rawFillingArray[index].value === "") {
+            let checkedSquares = [];
+            rawFillingArray = emptySlotDiscover(
+              rawFillingArray,
+              index,
+              checkedSquares
+            );
+          } else if (rawFillingArray[index].value === "M") {
+            for (let i = 0; i < rawFillingArray.length; i++) {
+              if (rawFillingArray[i].value === "M") {
+                rawFillingArray[i].clicked = "revealed";
+              }
+            }
+            setEndGame(true);
+          }
+          setSquaresValues(rawFillingArray);
+        }
       }
     }
   };
@@ -270,17 +282,35 @@ function App() {
   };
 
   const foundMine = index => {
-    let rawFillingArray = [...squaresValues];
-    if (rawFillingArray[index].clicked === "hide") {
-      rawFillingArray[index].clicked = "locked";
-    } else if (rawFillingArray[index].clicked === "locked") {
-      rawFillingArray[index].clicked = "hide";
+    if (!endGame) {
+      let rawFillingArray = [...squaresValues];
+      if (rawFillingArray[index].clicked === "hide") {
+        rawFillingArray[index].clicked = "locked";
+        setMineCounter(mineCounter - 1);
+      } else if (rawFillingArray[index].clicked === "locked") {
+        rawFillingArray[index].clicked = "hide";
+        setMineCounter(mineCounter + 1);
+      }
+      setSquaresValues(rawFillingArray);
     }
-    setSquaresValues(rawFillingArray);
+  };
+  const restartGame = () => {
+    let emptyFilling = [];
+    for (let i = 0; i < 81; i++) {
+      emptyFilling.push({ value: "", clicked: "hide" });
+    }
+    setSquaresValues(emptyFilling);
+    setEndGame(false);
+    setIsBoardSet(false);
+    setMineCounter(10);
   };
 
   return (
     <div className="App">
+      <div>
+        <p>{mineCounter}</p>
+        <RefreshIcon restartGame={restartGame} />
+      </div>
       <Board
         value={squaresValues}
         onClickSquare={showSquare}

@@ -1,0 +1,17 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0;
+}
+.App > div {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+  width: 306px;
+  margin: 10px;
+}
+.App > div p {
+  font-size: 22px;
+}

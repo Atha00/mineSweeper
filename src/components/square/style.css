@@ -1,6 +1,5 @@
 .square-revealed {
   background: #fff;
-  /* border: 1px solid #999; */
   float: left;
   font-size: 24px;
   font-weight: bold;
@@ -14,7 +13,6 @@
 }
 .square-hide {
   background: green;
-  /* border: 1px solid #999; */
   float: left;
   font-size: 24px;
   font-weight: bold;
@@ -28,7 +26,6 @@
 }
 .square-locked {
   background: red;
-  /* border: 1px solid #999; */
   float: left;
   font-size: 24px;
   font-weight: bold;
