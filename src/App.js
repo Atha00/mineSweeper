@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import "./App.css";
 import Board from "./components/board";
 import RefreshIcon from "./components/refreshIcon";
+import Timer from "./components/timer";
 
 function App() {
-  let timer = null;
   let emptyFilling = [];
   for (let i = 0; i < 81; i++) {
     emptyFilling.push({ value: "", clicked: "hide" });
@@ -14,6 +14,7 @@ function App() {
   const [isBoardSet, setIsBoardSet] = useState(false);
   const [endGame, setEndGame] = useState(false);
   const [mineCounter, setMineCounter] = useState(10);
+  const [timerIsRunning, setTimerIsRunning] = useState(false);
   const [time, setTime] = useState(0);
 
   const randomNumbersGeneration = firstClickIndex => {
@@ -51,20 +52,11 @@ function App() {
     }
   };
 
-  const stopTimer = () => {
-    clearInterval(timer);
-    console.log("stop ?");
-  };
-
   const showSquare = index => {
     if (!endGame) {
       if (!isBoardSet) {
-        timer = setInterval(() => {
-          setTime(t => t + 1);
-          console.log("test");
-        }, 1000);
+        setTimerIsRunning(true);
         let rawFillingArray = [...squaresValues];
-
         //set-up des mines
         let setMinesArray = randomNumbersGeneration(index);
         for (let i = 0; i < setMinesArray.length; i++) {
@@ -150,7 +142,7 @@ function App() {
                 rawFillingArray[i].clicked = "revealed";
               }
             }
-            stopTimer();
+            setTimerIsRunning(false);
             setEndGame(true);
           }
           let revealedCount = 0;
@@ -162,7 +154,7 @@ function App() {
           setSquaresValues(rawFillingArray);
           if (revealedCount === 71) {
             alert("Félicitations !");
-            stopTimer();
+            setTimerIsRunning(false);
             setEndGame(true);
           }
         }
@@ -326,8 +318,8 @@ function App() {
     setEndGame(false);
     setIsBoardSet(false);
     setMineCounter(10);
+    setTimerIsRunning(false);
     setTime(0);
-    stopTimer();
   };
 
   return (
@@ -335,7 +327,11 @@ function App() {
       <div>
         <p>{mineCounter}</p>
         <RefreshIcon restartGame={restartGame} />
-        <p>{time}</p>
+        {timerIsRunning ? (
+          <Timer time={time} setTime={setTime} />
+        ) : (
+          <p>{time}</p>
+        )}
       </div>
       <Board
         value={squaresValues}
