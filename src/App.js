@@ -4,6 +4,7 @@ import Board from "./components/board";
 import RefreshIcon from "./components/refreshIcon";
 
 function App() {
+  let timer = null;
   let emptyFilling = [];
   for (let i = 0; i < 81; i++) {
     emptyFilling.push({ value: "", clicked: "hide" });
@@ -13,6 +14,7 @@ function App() {
   const [isBoardSet, setIsBoardSet] = useState(false);
   const [endGame, setEndGame] = useState(false);
   const [mineCounter, setMineCounter] = useState(10);
+  const [time, setTime] = useState(0);
 
   const randomNumbersGeneration = firstClickIndex => {
     let tab = [];
@@ -49,9 +51,18 @@ function App() {
     }
   };
 
+  const stopTimer = () => {
+    clearInterval(timer);
+    console.log("stop ?");
+  };
+
   const showSquare = index => {
     if (!endGame) {
       if (!isBoardSet) {
+        timer = setInterval(() => {
+          setTime(t => t + 1);
+          console.log("test");
+        }, 1000);
         let rawFillingArray = [...squaresValues];
 
         //set-up des mines
@@ -139,9 +150,21 @@ function App() {
                 rawFillingArray[i].clicked = "revealed";
               }
             }
+            stopTimer();
             setEndGame(true);
           }
+          let revealedCount = 0;
+          for (let k = 0; k < rawFillingArray.length; k++) {
+            if (rawFillingArray[k].clicked === "revealed") {
+              revealedCount = revealedCount + 1;
+            }
+          }
           setSquaresValues(rawFillingArray);
+          if (revealedCount === 71) {
+            alert("Félicitations !");
+            stopTimer();
+            setEndGame(true);
+          }
         }
       }
     }
@@ -303,6 +326,8 @@ function App() {
     setEndGame(false);
     setIsBoardSet(false);
     setMineCounter(10);
+    setTime(0);
+    stopTimer();
   };
 
   return (
@@ -310,6 +335,7 @@ function App() {
       <div>
         <p>{mineCounter}</p>
         <RefreshIcon restartGame={restartGame} />
+        <p>{time}</p>
       </div>
       <Board
         value={squaresValues}
