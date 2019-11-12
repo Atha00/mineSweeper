@@ -1,9 +1,16 @@
 import React from "react";
+import MineLogo from "../../images/mine.png";
 import "./style.css";
 
 function Square(props) {
   const renderingClick = (value, clicked) => {
-    return clicked === "revealed" ? value : null;
+    return clicked === "revealed" ? (
+      value === "M" ? (
+        <img src={MineLogo} alt="" />
+      ) : (
+        value
+      )
+    ) : null;
   };
   const renderingColor = value => {
     if (value === 1) {

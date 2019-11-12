@@ -15,3 +15,7 @@
 .App > div p {
   font-size: 22px;
 }
+.App img {
+  width: 22px;
+  height: 22px;
+}

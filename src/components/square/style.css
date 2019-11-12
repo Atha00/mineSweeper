@@ -25,7 +25,11 @@
   width: 34px;
 }
 .square-locked {
-  background: red;
+  background-image: url("../../images/flag.png");
+  background-color: green;
+  background-position: center;
+  background-size: 21px 21px;
+  background-repeat: no-repeat;
   float: left;
   font-size: 24px;
   font-weight: bold;
