@@ -3,14 +3,24 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 50px 0;
+  margin: 50px auto;
+  background-color: green;
+  border-top: 5px lightgreen outset;
+  border-left: 5px lightgreen outset;
+  border-right: 5px darkgreen outset;
+  border-bottom: 5px darkgreen outset;
+  width: 336px;
 }
 .App > div {
   display: flex;
   justify-content: space-around;
   align-content: center;
   width: 306px;
-  margin: 10px;
+  margin: 20px 10px 10px 10px;
+  border-bottom: 5px lightgreen outset;
+  border-right: 5px lightgreen outset;
+  border-left: 5px darkgreen outset;
+  border-top: 5px darkgreen outset;
 }
 .App > div p {
   font-size: 22px;

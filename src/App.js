@@ -53,6 +53,8 @@ function App() {
   };
 
   const showSquare = index => {
+    console.log(index);
+
     if (!endGame) {
       if (!isBoardSet) {
         setTimerIsRunning(true);

@@ -1,4 +1,8 @@
 .main-board {
   display: flex;
   flex-direction: column;
+  border-bottom: 5px lightgreen outset;
+  border-right: 5px lightgreen outset;
+  border-left: 5px darkgreen outset;
+  border-top: 5px darkgreen outset;
 }

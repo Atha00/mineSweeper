@@ -3,9 +3,21 @@ import Square from "../square";
 import "./style.css";
 
 function Board(props) {
+  const buildingBoard = (width, height) => {
+    let board = [];
+    for (let i = 0; i < width; i++) {
+      let line = [];
+      for (let j = 1; j <= height; j++) {
+        line.push(renderingSquare(i * width + j));
+      }
+      board.push(<div key={i + "a"}>{line}</div>);
+    }
+    return board;
+  };
   const renderingSquare = index => {
     return (
       <Square
+        key={index - 1}
         id={index - 1}
         value={props.value[index - 1].value}
         clicked={props.value[index - 1].clicked}
@@ -17,7 +29,8 @@ function Board(props) {
   };
   return (
     <div className="main-board">
-      <div>
+      {buildingBoard(9, 9)}
+      {/* <div>
         {renderingSquare(1)}
         {renderingSquare(2)}
         {renderingSquare(3)}
@@ -115,7 +128,7 @@ function Board(props) {
         {renderingSquare(79)}
         {renderingSquare(80)}
         {renderingSquare(81)}
-      </div>
+      </div> */}
     </div>
   );
 }

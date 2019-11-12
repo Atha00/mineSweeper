@@ -33,6 +33,7 @@ function Square(props) {
   };
   return (
     <button
+      key={props.index}
       className={`${renderingColor(props.value)} ${
         props.clicked === "revealed"
           ? "square-revealed"

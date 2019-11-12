@@ -5,8 +5,6 @@
   font-weight: bold;
   line-height: 34px;
   height: 34px;
-  /* margin-right: -1px;
-  margin-top: -1px; */
   padding: 0;
   text-align: center;
   width: 34px;
@@ -18,11 +16,13 @@
   font-weight: bold;
   line-height: 34px;
   height: 34px;
-  /* margin-right: -1px;
-  margin-top: -1px; */
   padding: 0;
   text-align: center;
   width: 34px;
+  border-top: 5px lightgreen outset;
+  border-left: 5px lightgreen outset;
+  border-right: 5px darkgreen outset;
+  border-bottom: 5px darkgreen outset;
 }
 .square-locked {
   background-image: url("../../images/flag.png");
@@ -35,11 +35,13 @@
   font-weight: bold;
   line-height: 34px;
   height: 34px;
-  /* margin-right: -1px;
-  margin-top: -1px; */
   padding: 0;
   text-align: center;
   width: 34px;
+  border-top: 5px lightgreen outset;
+  border-left: 5px lightgreen outset;
+  border-right: 5px darkgreen outset;
+  border-bottom: 5px darkgreen outset;
 }
 .blue {
   color: rgb(22, 79, 223);
