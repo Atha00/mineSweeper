@@ -9,13 +9,11 @@
   border-left: 5px lightgreen outset;
   border-right: 5px darkgreen outset;
   border-bottom: 5px darkgreen outset;
-  width: 336px;
 }
 .App > div {
   display: flex;
   justify-content: space-around;
   align-content: center;
-  width: 306px;
   margin: 20px 10px 10px 10px;
   border-bottom: 5px lightgreen outset;
   border-right: 5px lightgreen outset;
@@ -26,6 +24,10 @@
   font-size: 22px;
 }
 .App img {
-  width: 22px;
-  height: 22px;
+  width: 26px;
+  height: 26px;
+}
+.set-difficulty {
+  display: flex;
+  justify-content: space-around;
 }

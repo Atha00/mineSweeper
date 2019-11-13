@@ -1,24 +1,24 @@
 .square-revealed {
   background: #fff;
   float: left;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
-  line-height: 34px;
-  height: 34px;
+  line-height: 40px;
+  height: 40px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 40px;
 }
 .square-hide {
   background: green;
   float: left;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
-  line-height: 34px;
-  height: 34px;
+  line-height: 40px;
+  height: 40px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 40px;
   border-top: 5px lightgreen outset;
   border-left: 5px lightgreen outset;
   border-right: 5px darkgreen outset;
@@ -31,13 +31,13 @@
   background-size: 21px 21px;
   background-repeat: no-repeat;
   float: left;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
-  line-height: 34px;
-  height: 34px;
+  line-height: 40px;
+  height: 40px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 40px;
   border-top: 5px lightgreen outset;
   border-left: 5px lightgreen outset;
   border-right: 5px darkgreen outset;

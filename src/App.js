@@ -1,25 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Board from "./components/board";
 import RefreshIcon from "./components/refreshIcon";
 import Timer from "./components/timer";
 
 function App() {
-  let emptyFilling = [];
-  for (let i = 0; i < 81; i++) {
-    emptyFilling.push({ value: "", clicked: "hide" });
-  }
-
-  const [squaresValues, setSquaresValues] = useState(emptyFilling);
+  const [squaresValues, setSquaresValues] = useState([]);
   const [isBoardSet, setIsBoardSet] = useState(false);
   const [endGame, setEndGame] = useState(false);
   const [mineCounter, setMineCounter] = useState(10);
   const [timerIsRunning, setTimerIsRunning] = useState(false);
   const [time, setTime] = useState(0);
+  const [width, setWidth] = useState(9);
+  const [height, setHeight] = useState(9);
+  const [numberOfMines, setNumberOfMines] = useState(10);
+
+  useEffect(() => {
+    let emptyFilling = [];
+    for (let i = 0; i < width * height; i++) {
+      emptyFilling.push({ value: "", clicked: "hide" });
+    }
+    setSquaresValues(emptyFilling);
+  }, [width, height]);
 
   const randomNumbersGeneration = firstClickIndex => {
     let tab = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < numberOfMines; i++) {
       let currentNumber;
       currentNumber = Math.floor(Math.random() * (80 - 0 + 1)) + 0;
       if (
@@ -74,31 +80,35 @@ function App() {
             let count = 0;
             let aroundArray = [i + 1, i + 9, i + 10];
             setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-          } else if (i === 8) {
+          } else if (i === width - 1) {
             let count = 0;
             let aroundArray = [i - 1, i + 8, i + 9];
             setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-          } else if (i === 72) {
+          } else if (i === width * (height - 1)) {
             let count = 0;
             let aroundArray = [i - 9, i - 8, i + 1];
             setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-          } else if (i === 80) {
+          } else if (i === width * height - 1) {
             let count = 0;
             let aroundArray = [i - 10, i - 9, i - 1];
             setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-          } else if (i > 0 && i < 8) {
+          } else if (i > 0 && i < width - 1) {
             let count = 0;
             let aroundArray = [i - 1, i + 1, i + 8, i + 9, i + 10];
             setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-          } else if (i % 9 === 0 && i !== 0 && i !== 72) {
+          } else if (i % width === 0 && i !== 0 && i !== width * (height - 1)) {
             let count = 0;
             let aroundArray = [i - 9, i - 8, i + 1, i + 9, i + 10];
             setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-          } else if (i % 9 === 8 && i !== 8 && i !== 80) {
+          } else if (
+            i % width === width - 1 &&
+            i !== width - 1 &&
+            i !== width * height - 1
+          ) {
             let count = 0;
             let aroundArray = [i - 10, i - 9, i - 1, i + 8, i + 9];
             setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-          } else if (i > 72 && i < 80) {
+          } else if (i > width * (height - 1) && i < width * height - 1) {
             let count = 0;
             let aroundArray = [i - 10, i - 9, i - 8, i - 1, i + 1];
             setUpNumbers(aroundArray, rawFillingArray, i, count, index);
@@ -197,7 +207,7 @@ function App() {
         checkedSquares,
         emptySlotDiscover
       );
-    } else if (index === 8) {
+    } else if (index === width - 1) {
       let aroundArray = [index - 1, index + 8, index + 9];
       discoveringAroundEmptySlot(
         aroundArray,
@@ -205,7 +215,7 @@ function App() {
         checkedSquares,
         emptySlotDiscover
       );
-    } else if (index === 72) {
+    } else if (index === width * (height - 1)) {
       let aroundArray = [index - 9, index - 8, index + 1];
       discoveringAroundEmptySlot(
         aroundArray,
@@ -213,7 +223,7 @@ function App() {
         checkedSquares,
         emptySlotDiscover
       );
-    } else if (index === 80) {
+    } else if (index === width * height - 1) {
       let aroundArray = [index - 10, index - 9, index - 1];
       discoveringAroundEmptySlot(
         aroundArray,
@@ -221,7 +231,7 @@ function App() {
         checkedSquares,
         emptySlotDiscover
       );
-    } else if (index > 0 && index < 8) {
+    } else if (index > 0 && index < width - 1) {
       let aroundArray = [
         index - 1,
         index + 1,
@@ -235,7 +245,11 @@ function App() {
         checkedSquares,
         emptySlotDiscover
       );
-    } else if (index % 9 === 0 && index !== 0 && index !== 72) {
+    } else if (
+      index % width === 0 &&
+      index !== 0 &&
+      index !== width * (height - 1)
+    ) {
       let aroundArray = [
         index - 9,
         index - 8,
@@ -249,7 +263,11 @@ function App() {
         checkedSquares,
         emptySlotDiscover
       );
-    } else if (index % 9 === 8 && index !== 8 && index !== 80) {
+    } else if (
+      index % width === 8 &&
+      index !== width - 1 &&
+      index !== width * height - 1
+    ) {
       let aroundArray = [
         index - 10,
         index - 9,
@@ -263,7 +281,7 @@ function App() {
         checkedSquares,
         emptySlotDiscover
       );
-    } else if (index > 72 && index < 80) {
+    } else if (index > width * (height - 1) && index < width * height - 1) {
       let aroundArray = [
         index - 10,
         index - 9,
@@ -313,35 +331,48 @@ function App() {
   };
   const restartGame = () => {
     let emptyFilling = [];
-    for (let i = 0; i < 81; i++) {
+    for (let i = 0; i < width * height; i++) {
       emptyFilling.push({ value: "", clicked: "hide" });
     }
     setSquaresValues(emptyFilling);
     setEndGame(false);
     setIsBoardSet(false);
-    setMineCounter(10);
+    setMineCounter(numberOfMines);
     setTimerIsRunning(false);
     setTime(0);
   };
 
-  return (
-    <div className="App">
+  if (squaresValues.length > 0) {
+    return (
       <div>
-        <p>{mineCounter}</p>
-        <RefreshIcon restartGame={restartGame} />
-        {timerIsRunning ? (
-          <Timer time={time} setTime={setTime} />
-        ) : (
-          <p>{time}</p>
-        )}
+        <div className="App" style={{ width: `${width * 40 + 36}px` }}>
+          <div style={{ width: `${width * 40}px` }}>
+            <p>{mineCounter}</p>
+            <RefreshIcon restartGame={restartGame} />
+            {timerIsRunning ? (
+              <Timer time={time} setTime={setTime} />
+            ) : (
+              <p>{time}</p>
+            )}
+          </div>
+          <Board
+            width={width}
+            height={height}
+            value={squaresValues}
+            onClickSquare={showSquare}
+            onRightClickSquare={foundMine}
+          />
+        </div>
+        <div className="set-difficulty">
+          <span>Beginner</span>
+          <span>Intermediate</span>
+          <span>Expert</span>
+        </div>
       </div>
-      <Board
-        value={squaresValues}
-        onClickSquare={showSquare}
-        onRightClickSquare={foundMine}
-      />
-    </div>
-  );
+    );
+  } else {
+    return <p>Loading...</p>;
+  }
 }
 
 export default App;

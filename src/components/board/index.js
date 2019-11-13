@@ -29,7 +29,7 @@ function Board(props) {
   };
   return (
     <div className="main-board">
-      {buildingBoard(9, 9)}
+      {buildingBoard(props.width, props.height)}
       {/* <div>
         {renderingSquare(1)}
         {renderingSquare(2)}
