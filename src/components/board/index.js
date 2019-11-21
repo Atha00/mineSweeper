@@ -4,6 +4,8 @@ import "./style.css";
 
 function Board(props) {
   const buildingBoard = (width, height) => {
+    console.log("board ===>", width, height);
+
     let board = [];
     for (let i = 0; i < width; i++) {
       let line = [];

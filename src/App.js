@@ -11,23 +11,29 @@ function App() {
   const [mineCounter, setMineCounter] = useState(10);
   const [timerIsRunning, setTimerIsRunning] = useState(false);
   const [time, setTime] = useState(0);
-  const [width, setWidth] = useState(9);
-  const [height, setHeight] = useState(9);
-  const [numberOfMines, setNumberOfMines] = useState(10);
+  const [size, setSize] = useState({ width: 9, height: 9, numberOfMines: 10 });
+
+  let width = size.width;
+  let height = size.height;
+  let numberOfMines = size.numberOfMines;
+  setMineCounter(numberOfMines);
 
   useEffect(() => {
+    console.log("useEffect de App");
+
     let emptyFilling = [];
     for (let i = 0; i < width * height; i++) {
       emptyFilling.push({ value: "", clicked: "hide" });
     }
     setSquaresValues(emptyFilling);
-  }, [width, height]);
+  }, [size, width, height]);
 
   const randomNumbersGeneration = firstClickIndex => {
     let tab = [];
     for (let i = 0; i < numberOfMines; i++) {
       let currentNumber;
-      currentNumber = Math.floor(Math.random() * (80 - 0 + 1)) + 0;
+      currentNumber =
+        Math.floor(Math.random() * (width * height - 1 - 0 + 1)) + 0;
       if (
         tab.indexOf(currentNumber) === -1 &&
         currentNumber !== firstClickIndex
@@ -78,27 +84,39 @@ function App() {
         for (let i = 0; i < rawFillingArray.length; i++) {
           if (i === 0) {
             let count = 0;
-            let aroundArray = [i + 1, i + 9, i + 10];
+            let aroundArray = [i + 1, i + width, i + (width + 1)];
             setUpNumbers(aroundArray, rawFillingArray, i, count, index);
           } else if (i === width - 1) {
             let count = 0;
-            let aroundArray = [i - 1, i + 8, i + 9];
+            let aroundArray = [i - 1, i + (width - 1), i + width];
             setUpNumbers(aroundArray, rawFillingArray, i, count, index);
           } else if (i === width * (height - 1)) {
             let count = 0;
-            let aroundArray = [i - 9, i - 8, i + 1];
+            let aroundArray = [i - width, i - (width - 1), i + 1];
             setUpNumbers(aroundArray, rawFillingArray, i, count, index);
           } else if (i === width * height - 1) {
             let count = 0;
-            let aroundArray = [i - 10, i - 9, i - 1];
+            let aroundArray = [i - (width + 1), i - width, i - 1];
             setUpNumbers(aroundArray, rawFillingArray, i, count, index);
           } else if (i > 0 && i < width - 1) {
             let count = 0;
-            let aroundArray = [i - 1, i + 1, i + 8, i + 9, i + 10];
+            let aroundArray = [
+              i - 1,
+              i + 1,
+              i + (width - 1),
+              i + width,
+              i + (width + 1)
+            ];
             setUpNumbers(aroundArray, rawFillingArray, i, count, index);
           } else if (i % width === 0 && i !== 0 && i !== width * (height - 1)) {
             let count = 0;
-            let aroundArray = [i - 9, i - 8, i + 1, i + 9, i + 10];
+            let aroundArray = [
+              i - width,
+              i - (width - 1),
+              i + 1,
+              i + width,
+              i + (width + 1)
+            ];
             setUpNumbers(aroundArray, rawFillingArray, i, count, index);
           } else if (
             i % width === width - 1 &&
@@ -106,23 +124,35 @@ function App() {
             i !== width * height - 1
           ) {
             let count = 0;
-            let aroundArray = [i - 10, i - 9, i - 1, i + 8, i + 9];
+            let aroundArray = [
+              i - (width + 1),
+              i - width,
+              i - 1,
+              i + (width - 1),
+              i + width
+            ];
             setUpNumbers(aroundArray, rawFillingArray, i, count, index);
           } else if (i > width * (height - 1) && i < width * height - 1) {
             let count = 0;
-            let aroundArray = [i - 10, i - 9, i - 8, i - 1, i + 1];
+            let aroundArray = [
+              i - (width + 1),
+              i - width,
+              i - (width - 1),
+              i - 1,
+              i + 1
+            ];
             setUpNumbers(aroundArray, rawFillingArray, i, count, index);
           } else {
             let count = 0;
             let aroundArray = [
-              i - 10,
-              i - 9,
-              i - 8,
+              i - (width + 1),
+              i - width,
+              i - (width - 1),
               i - 1,
               i + 1,
-              i + 8,
-              i + 9,
-              i + 10
+              i + (width - 1),
+              i + width,
+              i + (width + 1)
             ];
             setUpNumbers(aroundArray, rawFillingArray, i, count, index);
           }
@@ -200,7 +230,7 @@ function App() {
 
   const emptySlotDiscover = (array, index, checkedSquares) => {
     if (index === 0) {
-      let aroundArray = [index + 1, index + 9, index + 10];
+      let aroundArray = [index + 1, index + width, index + (width + 1)];
       discoveringAroundEmptySlot(
         aroundArray,
         array,
@@ -208,7 +238,7 @@ function App() {
         emptySlotDiscover
       );
     } else if (index === width - 1) {
-      let aroundArray = [index - 1, index + 8, index + 9];
+      let aroundArray = [index - 1, index + (width - 1), index + width];
       discoveringAroundEmptySlot(
         aroundArray,
         array,
@@ -216,7 +246,7 @@ function App() {
         emptySlotDiscover
       );
     } else if (index === width * (height - 1)) {
-      let aroundArray = [index - 9, index - 8, index + 1];
+      let aroundArray = [index - width, index - (width - 1), index + 1];
       discoveringAroundEmptySlot(
         aroundArray,
         array,
@@ -224,7 +254,7 @@ function App() {
         emptySlotDiscover
       );
     } else if (index === width * height - 1) {
-      let aroundArray = [index - 10, index - 9, index - 1];
+      let aroundArray = [index - (width + 1), index - width, index - 1];
       discoveringAroundEmptySlot(
         aroundArray,
         array,
@@ -235,9 +265,9 @@ function App() {
       let aroundArray = [
         index - 1,
         index + 1,
-        index + 8,
-        index + 9,
-        index + 10
+        index + (width - 1),
+        index + width,
+        index + (width + 1)
       ];
       discoveringAroundEmptySlot(
         aroundArray,
@@ -251,11 +281,11 @@ function App() {
       index !== width * (height - 1)
     ) {
       let aroundArray = [
-        index - 9,
-        index - 8,
+        index - width,
+        index - (width - 1),
         index + 1,
-        index + 9,
-        index + 10
+        index + width,
+        index + (width + 1)
       ];
       discoveringAroundEmptySlot(
         aroundArray,
@@ -264,16 +294,16 @@ function App() {
         emptySlotDiscover
       );
     } else if (
-      index % width === 8 &&
+      index % width === width - 1 &&
       index !== width - 1 &&
       index !== width * height - 1
     ) {
       let aroundArray = [
-        index - 10,
-        index - 9,
+        index - (width + 1),
+        index - width,
         index - 1,
-        index + 8,
-        index + 9
+        index + (width - 1),
+        index + width
       ];
       discoveringAroundEmptySlot(
         aroundArray,
@@ -283,9 +313,9 @@ function App() {
       );
     } else if (index > width * (height - 1) && index < width * height - 1) {
       let aroundArray = [
-        index - 10,
-        index - 9,
-        index - 8,
+        index - (width + 1),
+        index - width,
+        index - (width - 1),
         index - 1,
         index + 1
       ];
@@ -297,14 +327,14 @@ function App() {
       );
     } else {
       let aroundArray = [
-        index - 10,
-        index - 9,
-        index - 8,
+        index - (width + 1),
+        index - width,
+        index - (width - 1),
         index - 1,
         index + 1,
-        index + 8,
-        index + 9,
-        index + 10
+        index + (width - 1),
+        index + width,
+        index + (width + 1)
       ];
       discoveringAroundEmptySlot(
         aroundArray,
@@ -355,17 +385,26 @@ function App() {
               <p>{time}</p>
             )}
           </div>
-          <Board
-            width={width}
-            height={height}
-            value={squaresValues}
-            onClickSquare={showSquare}
-            onRightClickSquare={foundMine}
-          />
+          {squaresValues.length === width * height ? (
+            <Board
+              width={width}
+              height={height}
+              value={squaresValues}
+              onClickSquare={showSquare}
+              onRightClickSquare={foundMine}
+            />
+          ) : null}
         </div>
         <div className="set-difficulty">
           <span>Beginner</span>
-          <span>Intermediate</span>
+          <span
+            onClick={() => {
+              setSize({ width: 16, height: 16, numberOfMines: 40 });
+              setIsBoardSet(false);
+            }}
+          >
+            Intermediate
+          </span>
           <span>Expert</span>
         </div>
       </div>
