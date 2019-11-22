@@ -5,21 +5,21 @@ import RefreshIcon from "./components/refreshIcon";
 import Timer from "./components/timer";
 
 function App() {
+  console.log("Lancement App.js");
   const [squaresValues, setSquaresValues] = useState([]);
   const [isBoardSet, setIsBoardSet] = useState(false);
   const [endGame, setEndGame] = useState(false);
-  const [mineCounter, setMineCounter] = useState(10);
   const [timerIsRunning, setTimerIsRunning] = useState(false);
   const [time, setTime] = useState(0);
   const [size, setSize] = useState({ width: 9, height: 9, numberOfMines: 10 });
+  const [mineCounter, setMineCounter] = useState(10);
 
   let width = size.width;
   let height = size.height;
   let numberOfMines = size.numberOfMines;
-  setMineCounter(numberOfMines);
 
   useEffect(() => {
-    console.log("useEffect de App");
+    console.log("SERIEUX ?");
 
     let emptyFilling = [];
     for (let i = 0; i < width * height; i++) {
@@ -57,7 +57,11 @@ function App() {
     }
     if (count !== 0 && rawFillingArray[i].value !== "M") {
       if (i !== index) {
-        rawFillingArray.splice(i, 1, { value: count, clicked: "hide" });
+        if (rawFillingArray[i].clicked === "locked") {
+          rawFillingArray.splice(i, 1, { value: count, clicked: "locked" });
+        } else {
+          rawFillingArray.splice(i, 1, { value: count, clicked: "hide" });
+        }
       } else {
         rawFillingArray.splice(i, 1, { value: count, clicked: "revealed" });
       }
@@ -74,10 +78,17 @@ function App() {
         //set-up des mines
         let setMinesArray = randomNumbersGeneration(index);
         for (let i = 0; i < setMinesArray.length; i++) {
-          rawFillingArray.splice(setMinesArray[i], 1, {
-            value: "M",
-            clicked: "hide"
-          });
+          if (rawFillingArray[setMinesArray[i]].clicked === "locked") {
+            rawFillingArray.splice(setMinesArray[i], 1, {
+              value: "M",
+              clicked: "locked"
+            });
+          } else {
+            rawFillingArray.splice(setMinesArray[i], 1, {
+              value: "M",
+              clicked: "hide"
+            });
+          }
         }
 
         //set-up des chiffres
@@ -194,7 +205,7 @@ function App() {
             }
           }
           setSquaresValues(rawFillingArray);
-          if (revealedCount === 71) {
+          if (revealedCount === width * height - numberOfMines) {
             alert("Félicitations !");
             setTimerIsRunning(false);
             setEndGame(true);
@@ -375,9 +386,10 @@ function App() {
   if (squaresValues.length > 0) {
     return (
       <div>
-        <div className="App" style={{ width: `${width * 40 + 36}px` }}>
-          <div style={{ width: `${width * 40}px` }}>
+        <div className="App" style={{ width: `${width * 36 + 36}px` }}>
+          <div style={{ width: `${width * 36}px` }}>
             <p>{mineCounter}</p>
+
             <RefreshIcon restartGame={restartGame} />
             {timerIsRunning ? (
               <Timer time={time} setTime={setTime} />
@@ -392,20 +404,43 @@ function App() {
               value={squaresValues}
               onClickSquare={showSquare}
               onRightClickSquare={foundMine}
+              numberOfMines={numberOfMines}
+              setMineCounter={setMineCounter}
+              isBoardSet={isBoardSet}
             />
           ) : null}
         </div>
         <div className="set-difficulty">
-          <span>Beginner</span>
+          <span
+            onClick={() => {
+              setSize({ width: 9, height: 9, numberOfMines: 10 });
+              setIsBoardSet(false);
+              setTimerIsRunning(false);
+              setTime(0);
+            }}
+          >
+            Beginner
+          </span>
           <span
             onClick={() => {
               setSize({ width: 16, height: 16, numberOfMines: 40 });
               setIsBoardSet(false);
+              setTimerIsRunning(false);
+              setTime(0);
             }}
           >
             Intermediate
           </span>
-          <span>Expert</span>
+          <span
+            onClick={() => {
+              setSize({ width: 30, height: 30, numberOfMines: 99 });
+              setIsBoardSet(false);
+              setTimerIsRunning(false);
+              setTime(0);
+            }}
+          >
+            Expert
+          </span>
         </div>
       </div>
     );

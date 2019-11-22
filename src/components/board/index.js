@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import Square from "../square";
 import "./style.css";
 
 function Board(props) {
-  const buildingBoard = (width, height) => {
-    console.log("board ===>", width, height);
-
+  const [makeMineCounterDynamique, setMakeMineCounterDynamique] = useState(
+    false
+  );
+  const buildingBoard = (
+    width,
+    height,
+    numberOfMines,
+    setCounterOfMines,
+    isBoardSet
+  ) => {
+    if (!isBoardSet && !makeMineCounterDynamique) {
+      setCounterOfMines(numberOfMines);
+      setMakeMineCounterDynamique(true);
+    }
     let board = [];
     for (let i = 0; i < width; i++) {
       let line = [];
@@ -31,7 +42,13 @@ function Board(props) {
   };
   return (
     <div className="main-board">
-      {buildingBoard(props.width, props.height)}
+      {buildingBoard(
+        props.width,
+        props.height,
+        props.numberOfMines,
+        props.setMineCounter,
+        props.isBoardSet
+      )}
       {/* <div>
         {renderingSquare(1)}
         {renderingSquare(2)}
