@@ -5,7 +5,6 @@ import RefreshIcon from "./components/refreshIcon";
 import Timer from "./components/timer";
 
 function App() {
-  console.log("Lancement App.js");
   const [squaresValues, setSquaresValues] = useState([]);
   const [isBoardSet, setIsBoardSet] = useState(false);
   const [endGame, setEndGame] = useState(false);
@@ -19,8 +18,6 @@ function App() {
   let numberOfMines = size.numberOfMines;
 
   useEffect(() => {
-    console.log("SERIEUX ?");
-
     let emptyFilling = [];
     for (let i = 0; i < width * height; i++) {
       emptyFilling.push({ value: "", clicked: "hide" });
@@ -69,8 +66,6 @@ function App() {
   };
 
   const showSquare = index => {
-    console.log(index);
-
     if (!endGame) {
       if (!isBoardSet) {
         setTimerIsRunning(true);
@@ -417,6 +412,7 @@ function App() {
               setIsBoardSet(false);
               setTimerIsRunning(false);
               setTime(0);
+              setEndGame(false);
             }}
           >
             Beginner
@@ -427,16 +423,18 @@ function App() {
               setIsBoardSet(false);
               setTimerIsRunning(false);
               setTime(0);
+              setEndGame(false);
             }}
           >
             Intermediate
           </span>
           <span
             onClick={() => {
-              setSize({ width: 30, height: 30, numberOfMines: 99 });
+              setSize({ width: 16, height: 30, numberOfMines: 99 });
               setIsBoardSet(false);
               setTimerIsRunning(false);
               setTime(0);
+              setEndGame(false);
             }}
           >
             Expert

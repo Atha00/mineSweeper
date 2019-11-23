@@ -19,10 +19,10 @@
   padding: 0;
   text-align: center;
   width: 36px;
-  border-top: 5px lightgreen outset;
-  border-left: 5px lightgreen outset;
-  border-right: 5px darkgreen outset;
-  border-bottom: 5px darkgreen outset;
+  border-top: 4px lightgreen outset;
+  border-left: 4px lightgreen outset;
+  border-right: 4px darkgreen outset;
+  border-bottom: 4px darkgreen outset;
 }
 .square-locked {
   background-image: url("../../images/flag.png");
@@ -38,10 +38,10 @@
   padding: 0;
   text-align: center;
   width: 36px;
-  border-top: 5px lightgreen outset;
-  border-left: 5px lightgreen outset;
-  border-right: 5px darkgreen outset;
-  border-bottom: 5px darkgreen outset;
+  border-top: 4px lightgreen outset;
+  border-left: 4px lightgreen outset;
+  border-right: 4px darkgreen outset;
+  border-bottom: 4px darkgreen outset;
 }
 .blue {
   color: rgb(22, 79, 223);

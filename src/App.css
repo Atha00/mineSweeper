@@ -5,20 +5,20 @@
   align-items: center;
   margin: 50px auto;
   background-color: green;
-  border-top: 5px lightgreen outset;
-  border-left: 5px lightgreen outset;
-  border-right: 5px darkgreen outset;
-  border-bottom: 5px darkgreen outset;
+  border-top: 4px lightgreen outset;
+  border-left: 4px lightgreen outset;
+  border-right: 4px darkgreen outset;
+  border-bottom: 4px darkgreen outset;
 }
 .App > div {
   display: flex;
   justify-content: space-around;
   align-content: center;
   margin: 20px 10px 10px 10px;
-  border-bottom: 5px lightgreen outset;
-  border-right: 5px lightgreen outset;
-  border-left: 5px darkgreen outset;
-  border-top: 5px darkgreen outset;
+  border-bottom: 4px lightgreen outset;
+  border-right: 4px lightgreen outset;
+  border-left: 4px darkgreen outset;
+  border-top: 4px darkgreen outset;
 }
 .App > div p {
   font-size: 22px;
