@@ -18,9 +18,9 @@ function Board(props) {
       setMakeMineCounterDynamique(true);
     }
     let board = [];
-    for (let i = 0; i < width; i++) {
+    for (let i = 0; i < height; i++) {
       let line = [];
-      for (let j = 1; j <= height; j++) {
+      for (let j = 1; j <= width; j++) {
         line.push(renderingSquare(i * width + j));
       }
       board.push(<div key={i + "a"}>{line}</div>);

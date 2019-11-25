@@ -430,7 +430,7 @@ function App() {
           </span>
           <span
             onClick={() => {
-              setSize({ width: 16, height: 30, numberOfMines: 99 });
+              setSize({ width: 30, height: 16, numberOfMines: 99 });
               setIsBoardSet(false);
               setTimerIsRunning(false);
               setTime(0);
