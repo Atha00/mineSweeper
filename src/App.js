@@ -12,6 +12,10 @@ function App() {
   const [time, setTime] = useState(0);
   const [size, setSize] = useState({ width: 9, height: 9, numberOfMines: 10 });
   const [mineCounter, setMineCounter] = useState(10);
+  const [customDial, setCustomDial] = useState(false);
+  const [widthInputChange, setWidthInputChange] = useState(0);
+  const [heightInputChange, setHeightInputChange] = useState(0);
+  const [minesInputChange, setMinesInputChange] = useState(0);
 
   let width = size.width;
   let height = size.height;
@@ -439,6 +443,57 @@ function App() {
           >
             Expert
           </span>
+          <span
+            onClick={() => {
+              setCustomDial(true);
+            }}
+          >
+            Custom
+          </span>
+          {customDial ? (
+            <div>
+              <form
+                onSubmit={() => {
+                  setSize({
+                    width: widthInputChange,
+                    height: heightInputChange,
+                    numberOfMines: minesInputChange
+                  });
+                  setIsBoardSet(false);
+                  setTimerIsRunning(false);
+                  setTime(0);
+                  setEndGame(false);
+                  setCustomDial(false);
+                }}
+              >
+                <span>Width : </span>
+                <input
+                  name="width"
+                  value={widthInputChange}
+                  onChange={event => {
+                    setWidthInputChange(event.target.value);
+                  }}
+                />
+                <span>Height : </span>
+                <input
+                  name="height"
+                  value={heightInputChange}
+                  onChange={event => {
+                    setHeightInputChange(event.target.value);
+                  }}
+                />
+                <span>Mines : </span>
+                <input
+                  name="mines"
+                  value={minesInputChange}
+                  onChange={event => {
+                    setMinesInputChange(event.target.value);
+                  }}
+                />
+                <button type="submit">Ok</button>
+              </form>
+            </div>
+          ) : null}
         </div>
       </div>
     );
