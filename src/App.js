@@ -16,11 +16,14 @@ function App() {
   const [widthInputChange, setWidthInputChange] = useState(0);
   const [heightInputChange, setHeightInputChange] = useState(0);
   const [minesInputChange, setMinesInputChange] = useState(0);
+  const [makeMineCounterDynamique, setMakeMineCounterDynamique] = useState(
+    false
+  );
 
   let width = size.width;
   let height = size.height;
   let numberOfMines = size.numberOfMines;
-  console.log(width, height, numberOfMines);
+  // console.log(width, height, numberOfMines);
 
   useEffect(() => {
     let emptyFilling = [];
@@ -32,12 +35,16 @@ function App() {
 
   const randomNumbersGeneration = firstClickIndex => {
     let tab = [];
+
     for (let i = 0; i < numberOfMines; i++) {
       let currentNumber;
       currentNumber =
         Math.floor(Math.random() * (width * height - 1 - 0 + 1)) + 0;
+      console.log("currentNumber ===>", currentNumber);
+
       if (firstClickIndex === 0) {
         let aroundArray = [
+          firstClickIndex,
           firstClickIndex + 1,
           firstClickIndex + width,
           firstClickIndex + (width + 1)
@@ -52,6 +59,7 @@ function App() {
         }
       } else if (firstClickIndex === width - 1) {
         let aroundArray = [
+          firstClickIndex,
           firstClickIndex - 1,
           firstClickIndex + (width - 1),
           firstClickIndex + width
@@ -66,6 +74,7 @@ function App() {
         }
       } else if (firstClickIndex === width * (height - 1)) {
         let aroundArray = [
+          firstClickIndex,
           firstClickIndex - width,
           firstClickIndex - (width - 1),
           firstClickIndex + 1
@@ -80,6 +89,7 @@ function App() {
         }
       } else if (firstClickIndex === width * height - 1) {
         let aroundArray = [
+          firstClickIndex,
           firstClickIndex - (width + 1),
           firstClickIndex - width,
           firstClickIndex - 1
@@ -94,6 +104,7 @@ function App() {
         }
       } else if (i > 0 && i < width - 1) {
         let aroundArray = [
+          firstClickIndex,
           firstClickIndex - 1,
           firstClickIndex + 1,
           firstClickIndex + (width - 1),
@@ -114,6 +125,7 @@ function App() {
         firstClickIndex !== width * (height - 1)
       ) {
         let aroundArray = [
+          firstClickIndex,
           firstClickIndex - width,
           firstClickIndex - (width - 1),
           firstClickIndex + 1,
@@ -134,6 +146,7 @@ function App() {
         firstClickIndex !== width * height - 1
       ) {
         let aroundArray = [
+          firstClickIndex,
           firstClickIndex - (width + 1),
           firstClickIndex - width,
           firstClickIndex - 1,
@@ -153,6 +166,7 @@ function App() {
         firstClickIndex < width * height - 1
       ) {
         let aroundArray = [
+          firstClickIndex,
           firstClickIndex - (width + 1),
           firstClickIndex - width,
           firstClickIndex - (width - 1),
@@ -169,6 +183,7 @@ function App() {
         }
       } else {
         let aroundArray = [
+          firstClickIndex,
           firstClickIndex - (width + 1),
           firstClickIndex - width,
           firstClickIndex - (width - 1),
@@ -180,7 +195,15 @@ function App() {
         ];
         if (
           tab.indexOf(currentNumber) === -1 &&
-          aroundArray.indexOf(currentNumber) === -1
+          currentNumber !== firstClickIndex &&
+          currentNumber !== firstClickIndex - (width + 1) &&
+          currentNumber !== firstClickIndex - width &&
+          currentNumber !== firstClickIndex - (width - 1) &&
+          currentNumber !== firstClickIndex - 1 &&
+          currentNumber !== firstClickIndex + 1 &&
+          currentNumber !== firstClickIndex + (width - 1) &&
+          currentNumber !== firstClickIndex + width &&
+          currentNumber !== firstClickIndex + (width + 1)
         ) {
           tab.push(currentNumber);
         } else {
@@ -197,6 +220,8 @@ function App() {
       //   i--;
       // }
     }
+    console.log("tab ==>", tab);
+
     return tab;
   };
 
@@ -323,6 +348,7 @@ function App() {
           }
         }
         if (rawFillingArray[index].value === "") {
+          rawFillingArray[index].clicked = "revealed";
           let checkedSquares = [];
           rawFillingArray = emptySlotDiscover(
             rawFillingArray,
@@ -561,6 +587,8 @@ function App() {
               numberOfMines={numberOfMines}
               setMineCounter={setMineCounter}
               isBoardSet={isBoardSet}
+              makeMineCounterDynamique={makeMineCounterDynamique}
+              setMakeMineCounterDynamique={setMakeMineCounterDynamique}
             />
           ) : null}
         </div>
@@ -572,6 +600,7 @@ function App() {
               setTimerIsRunning(false);
               setTime(0);
               setEndGame(false);
+              setMakeMineCounterDynamique(false);
             }}
           >
             Beginner
@@ -583,6 +612,7 @@ function App() {
               setTimerIsRunning(false);
               setTime(0);
               setEndGame(false);
+              setMakeMineCounterDynamique(false);
             }}
           >
             Intermediate
@@ -594,6 +624,7 @@ function App() {
               setTimerIsRunning(false);
               setTime(0);
               setEndGame(false);
+              setMakeMineCounterDynamique(false);
             }}
           >
             Expert
@@ -645,6 +676,7 @@ function App() {
                     height: parseInt(heightInputChange),
                     numberOfMines: parseInt(minesInputChange)
                   });
+                  setMakeMineCounterDynamique(false);
                   setCustomDial(false);
                 }}
               >

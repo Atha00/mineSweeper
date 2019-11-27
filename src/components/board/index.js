@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Square from "../square";
 import "./style.css";
 
 function Board(props) {
-  const [makeMineCounterDynamique, setMakeMineCounterDynamique] = useState(
-    false
-  );
   const buildingBoard = (
     width,
     height,
@@ -13,9 +10,9 @@ function Board(props) {
     setCounterOfMines,
     isBoardSet
   ) => {
-    if (!isBoardSet && !makeMineCounterDynamique) {
+    if (!isBoardSet && !props.makeMineCounterDynamique) {
       setCounterOfMines(numberOfMines);
-      setMakeMineCounterDynamique(true);
+      props.setMakeMineCounterDynamique(true);
     }
     let board = [];
     for (let i = 0; i < height; i++) {
@@ -28,8 +25,6 @@ function Board(props) {
     return board;
   };
   const renderingSquare = index => {
-    // console.log(index);
-
     return (
       <Square
         key={index - 1}
