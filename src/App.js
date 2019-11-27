@@ -20,6 +20,7 @@ function App() {
   let width = size.width;
   let height = size.height;
   let numberOfMines = size.numberOfMines;
+  console.log(width, height, numberOfMines);
 
   useEffect(() => {
     let emptyFilling = [];
@@ -70,6 +71,8 @@ function App() {
   };
 
   const showSquare = index => {
+    console.log(index);
+
     if (!endGame) {
       if (!isBoardSet) {
         setTimerIsRunning(true);
@@ -452,46 +455,49 @@ function App() {
           </span>
           {customDial ? (
             <div>
-              <form
-                onSubmit={() => {
-                  setSize({
-                    width: widthInputChange,
-                    height: heightInputChange,
-                    numberOfMines: minesInputChange
-                  });
+              <span>Width : </span>
+              <input
+                name="width"
+                type="number"
+                value={widthInputChange}
+                onChange={event => {
+                  setWidthInputChange(event.target.value);
+                }}
+              />
+              <span>Height : </span>
+              <input
+                name="height"
+                type="number"
+                value={heightInputChange}
+                onChange={event => {
+                  setHeightInputChange(event.target.value);
+                }}
+              />
+              <span>Mines : </span>
+              <input
+                name="mines"
+                type="number"
+                value={minesInputChange}
+                onChange={event => {
+                  setMinesInputChange(event.target.value);
+                }}
+              />
+              <button
+                onClick={() => {
                   setIsBoardSet(false);
                   setTimerIsRunning(false);
                   setTime(0);
                   setEndGame(false);
+                  setSize({
+                    width: parseInt(widthInputChange),
+                    height: parseInt(heightInputChange),
+                    numberOfMines: parseInt(minesInputChange)
+                  });
                   setCustomDial(false);
                 }}
               >
-                <span>Width : </span>
-                <input
-                  name="width"
-                  value={widthInputChange}
-                  onChange={event => {
-                    setWidthInputChange(event.target.value);
-                  }}
-                />
-                <span>Height : </span>
-                <input
-                  name="height"
-                  value={heightInputChange}
-                  onChange={event => {
-                    setHeightInputChange(event.target.value);
-                  }}
-                />
-                <span>Mines : </span>
-                <input
-                  name="mines"
-                  value={minesInputChange}
-                  onChange={event => {
-                    setMinesInputChange(event.target.value);
-                  }}
-                />
-                <button type="submit">Ok</button>
-              </form>
+                Ok
+              </button>
             </div>
           ) : null}
         </div>

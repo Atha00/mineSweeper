@@ -28,7 +28,7 @@ function Board(props) {
     return board;
   };
   const renderingSquare = index => {
-    console.log(index);
+    // console.log(index);
 
     return (
       <Square
