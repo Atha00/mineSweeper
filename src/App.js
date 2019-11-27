@@ -36,14 +36,166 @@ function App() {
       let currentNumber;
       currentNumber =
         Math.floor(Math.random() * (width * height - 1 - 0 + 1)) + 0;
-      if (
-        tab.indexOf(currentNumber) === -1 &&
-        currentNumber !== firstClickIndex
+      if (firstClickIndex === 0) {
+        let aroundArray = [
+          firstClickIndex + 1,
+          firstClickIndex + width,
+          firstClickIndex + (width + 1)
+        ];
+        if (
+          tab.indexOf(currentNumber) === -1 &&
+          aroundArray.indexOf(currentNumber) === -1
+        ) {
+          tab.push(currentNumber);
+        } else {
+          i--;
+        }
+      } else if (firstClickIndex === width - 1) {
+        let aroundArray = [
+          firstClickIndex - 1,
+          firstClickIndex + (width - 1),
+          firstClickIndex + width
+        ];
+        if (
+          tab.indexOf(currentNumber) === -1 &&
+          aroundArray.indexOf(currentNumber) === -1
+        ) {
+          tab.push(currentNumber);
+        } else {
+          i--;
+        }
+      } else if (firstClickIndex === width * (height - 1)) {
+        let aroundArray = [
+          firstClickIndex - width,
+          firstClickIndex - (width - 1),
+          firstClickIndex + 1
+        ];
+        if (
+          tab.indexOf(currentNumber) === -1 &&
+          aroundArray.indexOf(currentNumber) === -1
+        ) {
+          tab.push(currentNumber);
+        } else {
+          i--;
+        }
+      } else if (firstClickIndex === width * height - 1) {
+        let aroundArray = [
+          firstClickIndex - (width + 1),
+          firstClickIndex - width,
+          firstClickIndex - 1
+        ];
+        if (
+          tab.indexOf(currentNumber) === -1 &&
+          aroundArray.indexOf(currentNumber) === -1
+        ) {
+          tab.push(currentNumber);
+        } else {
+          i--;
+        }
+      } else if (i > 0 && i < width - 1) {
+        let aroundArray = [
+          firstClickIndex - 1,
+          firstClickIndex + 1,
+          firstClickIndex + (width - 1),
+          firstClickIndex + width,
+          firstClickIndex + (width + 1)
+        ];
+        if (
+          tab.indexOf(currentNumber) === -1 &&
+          aroundArray.indexOf(currentNumber) === -1
+        ) {
+          tab.push(currentNumber);
+        } else {
+          i--;
+        }
+      } else if (
+        firstClickIndex % width === 0 &&
+        firstClickIndex !== 0 &&
+        firstClickIndex !== width * (height - 1)
       ) {
-        tab.push(currentNumber);
+        let aroundArray = [
+          firstClickIndex - width,
+          firstClickIndex - (width - 1),
+          firstClickIndex + 1,
+          firstClickIndex + width,
+          firstClickIndex + (width + 1)
+        ];
+        if (
+          tab.indexOf(currentNumber) === -1 &&
+          aroundArray.indexOf(currentNumber) === -1
+        ) {
+          tab.push(currentNumber);
+        } else {
+          i--;
+        }
+      } else if (
+        firstClickIndex % width === width - 1 &&
+        firstClickIndex !== width - 1 &&
+        firstClickIndex !== width * height - 1
+      ) {
+        let aroundArray = [
+          firstClickIndex - (width + 1),
+          firstClickIndex - width,
+          firstClickIndex - 1,
+          firstClickIndex + (width - 1),
+          firstClickIndex + width
+        ];
+        if (
+          tab.indexOf(currentNumber) === -1 &&
+          aroundArray.indexOf(currentNumber) === -1
+        ) {
+          tab.push(currentNumber);
+        } else {
+          i--;
+        }
+      } else if (
+        firstClickIndex > width * (height - 1) &&
+        firstClickIndex < width * height - 1
+      ) {
+        let aroundArray = [
+          firstClickIndex - (width + 1),
+          firstClickIndex - width,
+          firstClickIndex - (width - 1),
+          firstClickIndex - 1,
+          firstClickIndex + 1
+        ];
+        if (
+          tab.indexOf(currentNumber) === -1 &&
+          aroundArray.indexOf(currentNumber) === -1
+        ) {
+          tab.push(currentNumber);
+        } else {
+          i--;
+        }
       } else {
-        i--;
+        let aroundArray = [
+          firstClickIndex - (width + 1),
+          firstClickIndex - width,
+          firstClickIndex - (width - 1),
+          firstClickIndex - 1,
+          firstClickIndex + 1,
+          firstClickIndex + (width - 1),
+          firstClickIndex + width,
+          firstClickIndex + (width + 1)
+        ];
+        if (
+          tab.indexOf(currentNumber) === -1 &&
+          aroundArray.indexOf(currentNumber) === -1
+        ) {
+          tab.push(currentNumber);
+        } else {
+          i--;
+        }
       }
+
+      // if (
+      //   tab.indexOf(currentNumber) === -1 &&
+      //   currentNumber !== firstClickIndex
+      // ) {
+      //   tab.push(currentNumber);
+      // } else {
+      //   i--;
+      // }
     }
     return tab;
   };
