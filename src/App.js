@@ -13,12 +13,13 @@ function App() {
   const [size, setSize] = useState({ width: 9, height: 9, numberOfMines: 10 });
   const [mineCounter, setMineCounter] = useState(10);
   const [customDial, setCustomDial] = useState(false);
-  const [widthInputChange, setWidthInputChange] = useState(0);
-  const [heightInputChange, setHeightInputChange] = useState(0);
-  const [minesInputChange, setMinesInputChange] = useState(0);
+  const [widthInputChange, setWidthInputChange] = useState(5);
+  const [heightInputChange, setHeightInputChange] = useState(5);
+  const [minesInputChange, setMinesInputChange] = useState(3);
   const [makeMineCounterDynamique, setMakeMineCounterDynamique] = useState(
     false
   );
+  const [customConditions, setCustomConditions] = useState(true);
 
   let width = size.width;
   let height = size.height;
@@ -200,15 +201,6 @@ function App() {
           i--;
         }
       }
-
-      // if (
-      //   tab.indexOf(currentNumber) === -1 &&
-      //   currentNumber !== firstClickIndex
-      // ) {
-      //   tab.push(currentNumber);
-      // } else {
-      //   i--;
-      // }
     }
     return tab;
   };
@@ -617,7 +609,8 @@ function App() {
           </span>
           <span
             onClick={() => {
-              setCustomDial(true);
+              setCustomConditions(true);
+              setCustomDial(!customDial);
             }}
           >
             Custom
@@ -657,17 +650,35 @@ function App() {
                   setTimerIsRunning(false);
                   setTime(0);
                   setEndGame(false);
-                  setSize({
-                    width: parseInt(widthInputChange),
-                    height: parseInt(heightInputChange),
-                    numberOfMines: parseInt(minesInputChange)
-                  });
-                  setMakeMineCounterDynamique(false);
-                  setCustomDial(false);
+                  if (
+                    parseInt(widthInputChange) >= 5 &&
+                    parseInt(widthInputChange) <= 60 &&
+                    parseInt(heightInputChange) >= 5 &&
+                    parseInt(heightInputChange) <= 60 &&
+                    parseInt(minesInputChange) > 0 &&
+                    parseInt(widthInputChange) * parseInt(heightInputChange) >
+                      parseInt(minesInputChange) + 9
+                  ) {
+                    setSize({
+                      width: parseInt(widthInputChange),
+                      height: parseInt(heightInputChange),
+                      numberOfMines: parseInt(minesInputChange)
+                    });
+                    setMakeMineCounterDynamique(false);
+                    setCustomDial(false);
+                  } else {
+                    setCustomConditions(false);
+                  }
                 }}
               >
                 Ok
               </button>
+              {customConditions ? null : (
+                <p>
+                  Les paramètres ne sont pas corrects ! Minimum 1 mine,
+                  largeur/hauteur min : 5, largeur/hauteur max : 60
+                </p>
+              )}
             </div>
           ) : null}
         </div>
