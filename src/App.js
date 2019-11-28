@@ -23,7 +23,6 @@ function App() {
   let width = size.width;
   let height = size.height;
   let numberOfMines = size.numberOfMines;
-  // console.log(width, height, numberOfMines);
 
   useEffect(() => {
     let emptyFilling = [];
@@ -40,7 +39,6 @@ function App() {
       let currentNumber;
       currentNumber =
         Math.floor(Math.random() * (width * height - 1 - 0 + 1)) + 0;
-      console.log("currentNumber ===>", currentNumber);
 
       if (firstClickIndex === 0) {
         let aroundArray = [
@@ -102,7 +100,7 @@ function App() {
         } else {
           i--;
         }
-      } else if (i > 0 && i < width - 1) {
+      } else if (firstClickIndex > 0 && firstClickIndex < width - 1) {
         let aroundArray = [
           firstClickIndex,
           firstClickIndex - 1,
@@ -195,15 +193,7 @@ function App() {
         ];
         if (
           tab.indexOf(currentNumber) === -1 &&
-          currentNumber !== firstClickIndex &&
-          currentNumber !== firstClickIndex - (width + 1) &&
-          currentNumber !== firstClickIndex - width &&
-          currentNumber !== firstClickIndex - (width - 1) &&
-          currentNumber !== firstClickIndex - 1 &&
-          currentNumber !== firstClickIndex + 1 &&
-          currentNumber !== firstClickIndex + (width - 1) &&
-          currentNumber !== firstClickIndex + width &&
-          currentNumber !== firstClickIndex + (width + 1)
+          aroundArray.indexOf(currentNumber) === -1
         ) {
           tab.push(currentNumber);
         } else {
@@ -220,8 +210,6 @@ function App() {
       //   i--;
       // }
     }
-    console.log("tab ==>", tab);
-
     return tab;
   };
 
@@ -248,8 +236,6 @@ function App() {
   };
 
   const showSquare = index => {
-    console.log(index);
-
     if (!endGame) {
       if (!isBoardSet) {
         setTimerIsRunning(true);
@@ -540,7 +526,7 @@ function App() {
   const foundMine = index => {
     if (!endGame) {
       let rawFillingArray = [...squaresValues];
-      if (rawFillingArray[index].clicked === "hide") {
+      if (rawFillingArray[index].clicked === "hide" && mineCounter > 0) {
         rawFillingArray[index].clicked = "locked";
         setMineCounter(mineCounter - 1);
       } else if (rawFillingArray[index].clicked === "locked") {
