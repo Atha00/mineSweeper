@@ -546,13 +546,13 @@ function App() {
       <div>
         <div className="App" style={{ width: `${width * 36 + 36}px` }}>
           <div style={{ width: `${width * 36}px` }}>
-            <p>{mineCounter}</p>
+            <p className="header-board">{mineCounter}</p>
 
             <RefreshIcon restartGame={restartGame} />
             {timerIsRunning ? (
               <Timer time={time} setTime={setTime} />
             ) : (
-              <p>{time}</p>
+              <p className="header-board">{time}</p>
             )}
           </div>
           {squaresValues.length === width * height ? (

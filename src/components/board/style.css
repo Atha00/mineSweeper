@@ -1,8 +1,21 @@
 .main-board {
   display: flex;
   flex-direction: column;
-  border-bottom: 5px lightgreen outset;
-  border-right: 5px lightgreen outset;
-  border-left: 5px darkgreen outset;
-  border-top: 5px darkgreen outset;
+  border-bottom: 5px LIGHTGOLDENRODYELLOW outset;
+  border-right: 5px LIGHTGOLDENRODYELLOW outset;
+  border-left: 5px goldenrod outset;
+  border-top: 5px goldenrod outset;
+}
+.header-board {
+  margin: 20px 0px;
+  padding: 8px 5px 0 5px;
+  width: 80px;
+  text-align: right;
+  background-color: black;
+  height: 40px;
+  color: red;
+  font-size: 40px;
+  line-height: 40px;
+  vertical-align: baseline;
+  font-family: "Stardos Stencil", cursive;
 }

@@ -1,28 +1,29 @@
+@import url("https://fonts.googleapis.com/css?family=Stardos+Stencil&display=swap");
 .App {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 50px auto;
-  background-color: green;
-  border-top: 4px lightgreen outset;
-  border-left: 4px lightgreen outset;
-  border-right: 4px darkgreen outset;
-  border-bottom: 4px darkgreen outset;
+  background-color: gold;
+  border-top: 4px LIGHTGOLDENRODYELLOW outset;
+  border-left: 4px LIGHTGOLDENRODYELLOW outset;
+  border-right: 4px goldenrod outset;
+  border-bottom: 4px goldenrod outset;
 }
 .App > div {
   display: flex;
   justify-content: space-around;
   align-content: center;
   margin: 20px 10px 10px 10px;
-  border-bottom: 4px lightgreen outset;
-  border-right: 4px lightgreen outset;
-  border-left: 4px darkgreen outset;
-  border-top: 4px darkgreen outset;
+  border-bottom: 4px LIGHTGOLDENRODYELLOW inset;
+  border-right: 4px LIGHTGOLDENRODYELLOW inset;
+  border-left: 4px goldenrod inset;
+  border-top: 4px goldenrod inset;
 }
-.App > div p {
+/* .App > div p {
   font-size: 22px;
-}
+} */
 .App img {
   width: 26px;
   height: 26px;

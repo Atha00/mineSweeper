@@ -8,7 +8,7 @@ function Timer({ time, setTime }) {
     }, 1000);
     return () => clearInterval(interval);
   }, [setTime]);
-  return <p>{time}</p>;
+  return <p className="header-board">{time}</p>;
 }
 
 export default Timer;

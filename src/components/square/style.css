@@ -10,7 +10,7 @@
   width: 36px;
 }
 .square-hide {
-  background: green;
+  background: gold;
   float: left;
   font-size: 24px;
   font-weight: bold;
@@ -19,14 +19,14 @@
   padding: 0;
   text-align: center;
   width: 36px;
-  border-top: 4px lightgreen outset;
-  border-left: 4px lightgreen outset;
-  border-right: 4px darkgreen outset;
-  border-bottom: 4px darkgreen outset;
+  border-top: 4px LIGHTGOLDENRODYELLOW outset;
+  border-left: 4px LIGHTGOLDENRODYELLOW outset;
+  border-right: 4px goldenrod outset;
+  border-bottom: 4px goldenrod outset;
 }
 .square-locked {
   background-image: url("../../images/flag.png");
-  background-color: green;
+  background-color: gold;
   background-position: center;
   background-size: 21px 21px;
   background-repeat: no-repeat;
@@ -38,10 +38,10 @@
   padding: 0;
   text-align: center;
   width: 36px;
-  border-top: 4px lightgreen outset;
-  border-left: 4px lightgreen outset;
-  border-right: 4px darkgreen outset;
-  border-bottom: 4px darkgreen outset;
+  border-top: 4px LIGHTGOLDENRODYELLOW outset;
+  border-left: 4px LIGHTGOLDENRODYELLOW outset;
+  border-right: 4px goldenrod outset;
+  border-bottom: 4px goldenrod outset;
 }
 .blue {
   color: rgb(22, 79, 223);
