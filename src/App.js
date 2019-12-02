@@ -543,7 +543,7 @@ function App() {
 
   if (squaresValues.length > 0) {
     return (
-      <div>
+      <div className="main">
         <div className="App" style={{ width: `${width * 36 + 36}px` }}>
           <div style={{ width: `${width * 36}px` }}>
             <p className="header-board">{mineCounter}</p>
@@ -571,7 +571,9 @@ function App() {
           ) : null}
         </div>
         <div className="set-difficulty">
+          <h4>Set difficulty :</h4>
           <span
+            className="difficulty-button"
             onClick={() => {
               setSize({ width: 9, height: 9, numberOfMines: 10 });
               setIsBoardSet(false);
@@ -584,6 +586,7 @@ function App() {
             Beginner
           </span>
           <span
+            className="difficulty-button"
             onClick={() => {
               setSize({ width: 16, height: 16, numberOfMines: 40 });
               setIsBoardSet(false);
@@ -596,6 +599,7 @@ function App() {
             Intermediate
           </span>
           <span
+            className="difficulty-button"
             onClick={() => {
               setSize({ width: 30, height: 16, numberOfMines: 99 });
               setIsBoardSet(false);
@@ -608,6 +612,7 @@ function App() {
             Expert
           </span>
           <span
+            className="difficulty-button"
             onClick={() => {
               setCustomConditions(true);
               setCustomDial(!customDial);
@@ -616,7 +621,7 @@ function App() {
             Custom
           </span>
           {customDial ? (
-            <div>
+            <div className="custom-modal">
               <span>Width : </span>
               <input
                 name="width"
@@ -652,12 +657,12 @@ function App() {
                   setEndGame(false);
                   if (
                     parseInt(widthInputChange) >= 5 &&
-                    parseInt(widthInputChange) <= 60 &&
+                    parseInt(widthInputChange) <= 50 &&
                     parseInt(heightInputChange) >= 5 &&
-                    parseInt(heightInputChange) <= 60 &&
+                    parseInt(heightInputChange) <= 50 &&
                     parseInt(minesInputChange) > 0 &&
                     parseInt(widthInputChange) * parseInt(heightInputChange) >
-                      parseInt(minesInputChange) + 9
+                      parseInt(minesInputChange) + 10
                   ) {
                     setSize({
                       width: parseInt(widthInputChange),
@@ -676,7 +681,7 @@ function App() {
               {customConditions ? null : (
                 <p>
                   Les paramètres ne sont pas corrects ! Minimum 1 mine,
-                  largeur/hauteur min : 5, largeur/hauteur max : 60
+                  largeur/hauteur min : 5, largeur/hauteur max : 50
                 </p>
               )}
             </div>

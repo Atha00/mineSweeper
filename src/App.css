@@ -1,9 +1,14 @@
 @import url("https://fonts.googleapis.com/css?family=Stardos+Stencil&display=swap");
+.main {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+}
 .App {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   margin: 50px auto;
   background-color: gold;
   border-top: 4px LIGHTGOLDENRODYELLOW outset;
@@ -21,15 +26,49 @@
   border-left: 4px goldenrod inset;
   border-top: 4px goldenrod inset;
 }
-/* .App > div p {
-  font-size: 22px;
-} */
 .App img {
-  width: 26px;
-  height: 26px;
+  padding: 5px 0 0 0;
+  width: 24px;
+  height: 24px;
 }
 .set-difficulty {
   display: flex;
-  justify-content: space-around;
-  width: 80%;
+  flex-direction: column;
+  width: 20%;
+  align-items: center;
+  margin: 50px;
+  font-size: 24px;
+  color: black;
+  background-color: gold;
+  border-top: 3px LIGHTGOLDENRODYELLOW outset;
+  border-left: 3px LIGHTGOLDENRODYELLOW outset;
+  border-right: 3px goldenrod outset;
+  border-bottom: 3px goldenrod outset;
+  font-family: "Stardos Stencil", cursive;
+}
+.difficulty-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 40px;
+  margin: 5px auto;
+  text-align: center;
+  background-color: gold;
+  border-top: 3px LIGHTGOLDENRODYELLOW outset;
+  border-left: 3px LIGHTGOLDENRODYELLOW outset;
+  border-right: 3px goldenrod outset;
+  border-bottom: 3px goldenrod outset;
+  color: red;
+  font-size: 18px;
+}
+.custom-modal {
+  font-size: 16px;
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+}
+.custom-modal button {
+  margin: 10px;
 }
