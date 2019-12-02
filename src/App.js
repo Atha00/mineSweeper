@@ -33,6 +33,76 @@ function App() {
     setSquaresValues(emptyFilling);
   }, [size, width, height]);
 
+  const squareLocation = index => {
+    let aroundArray;
+    if (index === 0) {
+      aroundArray = [index, index + 1, index + width, index + (width + 1)];
+    } else if (index === width - 1) {
+      aroundArray = [index, index - 1, index + (width - 1), index + width];
+    } else if (index === width * (height - 1)) {
+      aroundArray = [index, index - width, index - (width - 1), index + 1];
+    } else if (index === width * height - 1) {
+      aroundArray = [index, index - (width + 1), index - width, index - 1];
+    } else if (index > 0 && index < width - 1) {
+      aroundArray = [
+        index,
+        index - 1,
+        index + 1,
+        index + (width - 1),
+        index + width,
+        index + (width + 1)
+      ];
+    } else if (
+      index % width === 0 &&
+      index !== 0 &&
+      index !== width * (height - 1)
+    ) {
+      aroundArray = [
+        index,
+        index - width,
+        index - (width - 1),
+        index + 1,
+        index + width,
+        index + (width + 1)
+      ];
+    } else if (
+      index % width === width - 1 &&
+      index !== width - 1 &&
+      index !== width * height - 1
+    ) {
+      aroundArray = [
+        index,
+        index - (width + 1),
+        index - width,
+        index - 1,
+        index + (width - 1),
+        index + width
+      ];
+    } else if (index > width * (height - 1) && index < width * height - 1) {
+      aroundArray = [
+        index,
+        index - (width + 1),
+        index - width,
+        index - (width - 1),
+        index - 1,
+        index + 1
+      ];
+    } else {
+      aroundArray = [
+        index,
+        index - (width + 1),
+        index - width,
+        index - (width - 1),
+        index - 1,
+        index + 1,
+        index + (width - 1),
+        index + width,
+        index + (width + 1)
+      ];
+    }
+    return aroundArray;
+  };
+
   const randomNumbersGeneration = firstClickIndex => {
     let tab = [];
 
@@ -41,165 +111,14 @@ function App() {
       currentNumber =
         Math.floor(Math.random() * (width * height - 1 - 0 + 1)) + 0;
 
-      if (firstClickIndex === 0) {
-        let aroundArray = [
-          firstClickIndex,
-          firstClickIndex + 1,
-          firstClickIndex + width,
-          firstClickIndex + (width + 1)
-        ];
-        if (
-          tab.indexOf(currentNumber) === -1 &&
-          aroundArray.indexOf(currentNumber) === -1
-        ) {
-          tab.push(currentNumber);
-        } else {
-          i--;
-        }
-      } else if (firstClickIndex === width - 1) {
-        let aroundArray = [
-          firstClickIndex,
-          firstClickIndex - 1,
-          firstClickIndex + (width - 1),
-          firstClickIndex + width
-        ];
-        if (
-          tab.indexOf(currentNumber) === -1 &&
-          aroundArray.indexOf(currentNumber) === -1
-        ) {
-          tab.push(currentNumber);
-        } else {
-          i--;
-        }
-      } else if (firstClickIndex === width * (height - 1)) {
-        let aroundArray = [
-          firstClickIndex,
-          firstClickIndex - width,
-          firstClickIndex - (width - 1),
-          firstClickIndex + 1
-        ];
-        if (
-          tab.indexOf(currentNumber) === -1 &&
-          aroundArray.indexOf(currentNumber) === -1
-        ) {
-          tab.push(currentNumber);
-        } else {
-          i--;
-        }
-      } else if (firstClickIndex === width * height - 1) {
-        let aroundArray = [
-          firstClickIndex,
-          firstClickIndex - (width + 1),
-          firstClickIndex - width,
-          firstClickIndex - 1
-        ];
-        if (
-          tab.indexOf(currentNumber) === -1 &&
-          aroundArray.indexOf(currentNumber) === -1
-        ) {
-          tab.push(currentNumber);
-        } else {
-          i--;
-        }
-      } else if (firstClickIndex > 0 && firstClickIndex < width - 1) {
-        let aroundArray = [
-          firstClickIndex,
-          firstClickIndex - 1,
-          firstClickIndex + 1,
-          firstClickIndex + (width - 1),
-          firstClickIndex + width,
-          firstClickIndex + (width + 1)
-        ];
-        if (
-          tab.indexOf(currentNumber) === -1 &&
-          aroundArray.indexOf(currentNumber) === -1
-        ) {
-          tab.push(currentNumber);
-        } else {
-          i--;
-        }
-      } else if (
-        firstClickIndex % width === 0 &&
-        firstClickIndex !== 0 &&
-        firstClickIndex !== width * (height - 1)
+      let aroundArray = squareLocation(firstClickIndex);
+      if (
+        tab.indexOf(currentNumber) === -1 &&
+        aroundArray.indexOf(currentNumber) === -1
       ) {
-        let aroundArray = [
-          firstClickIndex,
-          firstClickIndex - width,
-          firstClickIndex - (width - 1),
-          firstClickIndex + 1,
-          firstClickIndex + width,
-          firstClickIndex + (width + 1)
-        ];
-        if (
-          tab.indexOf(currentNumber) === -1 &&
-          aroundArray.indexOf(currentNumber) === -1
-        ) {
-          tab.push(currentNumber);
-        } else {
-          i--;
-        }
-      } else if (
-        firstClickIndex % width === width - 1 &&
-        firstClickIndex !== width - 1 &&
-        firstClickIndex !== width * height - 1
-      ) {
-        let aroundArray = [
-          firstClickIndex,
-          firstClickIndex - (width + 1),
-          firstClickIndex - width,
-          firstClickIndex - 1,
-          firstClickIndex + (width - 1),
-          firstClickIndex + width
-        ];
-        if (
-          tab.indexOf(currentNumber) === -1 &&
-          aroundArray.indexOf(currentNumber) === -1
-        ) {
-          tab.push(currentNumber);
-        } else {
-          i--;
-        }
-      } else if (
-        firstClickIndex > width * (height - 1) &&
-        firstClickIndex < width * height - 1
-      ) {
-        let aroundArray = [
-          firstClickIndex,
-          firstClickIndex - (width + 1),
-          firstClickIndex - width,
-          firstClickIndex - (width - 1),
-          firstClickIndex - 1,
-          firstClickIndex + 1
-        ];
-        if (
-          tab.indexOf(currentNumber) === -1 &&
-          aroundArray.indexOf(currentNumber) === -1
-        ) {
-          tab.push(currentNumber);
-        } else {
-          i--;
-        }
+        tab.push(currentNumber);
       } else {
-        let aroundArray = [
-          firstClickIndex,
-          firstClickIndex - (width + 1),
-          firstClickIndex - width,
-          firstClickIndex - (width - 1),
-          firstClickIndex - 1,
-          firstClickIndex + 1,
-          firstClickIndex + (width - 1),
-          firstClickIndex + width,
-          firstClickIndex + (width + 1)
-        ];
-        if (
-          tab.indexOf(currentNumber) === -1 &&
-          aroundArray.indexOf(currentNumber) === -1
-        ) {
-          tab.push(currentNumber);
-        } else {
-          i--;
-        }
+        i--;
       }
     }
     return tab;
@@ -250,80 +169,9 @@ function App() {
 
         //set-up des chiffres
         for (let i = 0; i < rawFillingArray.length; i++) {
-          if (i === 0) {
-            let count = 0;
-            let aroundArray = [i + 1, i + width, i + (width + 1)];
-            setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-          } else if (i === width - 1) {
-            let count = 0;
-            let aroundArray = [i - 1, i + (width - 1), i + width];
-            setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-          } else if (i === width * (height - 1)) {
-            let count = 0;
-            let aroundArray = [i - width, i - (width - 1), i + 1];
-            setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-          } else if (i === width * height - 1) {
-            let count = 0;
-            let aroundArray = [i - (width + 1), i - width, i - 1];
-            setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-          } else if (i > 0 && i < width - 1) {
-            let count = 0;
-            let aroundArray = [
-              i - 1,
-              i + 1,
-              i + (width - 1),
-              i + width,
-              i + (width + 1)
-            ];
-            setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-          } else if (i % width === 0 && i !== 0 && i !== width * (height - 1)) {
-            let count = 0;
-            let aroundArray = [
-              i - width,
-              i - (width - 1),
-              i + 1,
-              i + width,
-              i + (width + 1)
-            ];
-            setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-          } else if (
-            i % width === width - 1 &&
-            i !== width - 1 &&
-            i !== width * height - 1
-          ) {
-            let count = 0;
-            let aroundArray = [
-              i - (width + 1),
-              i - width,
-              i - 1,
-              i + (width - 1),
-              i + width
-            ];
-            setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-          } else if (i > width * (height - 1) && i < width * height - 1) {
-            let count = 0;
-            let aroundArray = [
-              i - (width + 1),
-              i - width,
-              i - (width - 1),
-              i - 1,
-              i + 1
-            ];
-            setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-          } else {
-            let count = 0;
-            let aroundArray = [
-              i - (width + 1),
-              i - width,
-              i - (width - 1),
-              i - 1,
-              i + 1,
-              i + (width - 1),
-              i + width,
-              i + (width + 1)
-            ];
-            setUpNumbers(aroundArray, rawFillingArray, i, count, index);
-          }
+          let count = 0;
+          let aroundArray = squareLocation(i);
+          setUpNumbers(aroundArray, rawFillingArray, i, count, index);
         }
         if (rawFillingArray[index].value === "") {
           rawFillingArray[index].clicked = "revealed";
@@ -398,120 +246,13 @@ function App() {
   };
 
   const emptySlotDiscover = (array, index, checkedSquares) => {
-    if (index === 0) {
-      let aroundArray = [index + 1, index + width, index + (width + 1)];
-      discoveringAroundEmptySlot(
-        aroundArray,
-        array,
-        checkedSquares,
-        emptySlotDiscover
-      );
-    } else if (index === width - 1) {
-      let aroundArray = [index - 1, index + (width - 1), index + width];
-      discoveringAroundEmptySlot(
-        aroundArray,
-        array,
-        checkedSquares,
-        emptySlotDiscover
-      );
-    } else if (index === width * (height - 1)) {
-      let aroundArray = [index - width, index - (width - 1), index + 1];
-      discoveringAroundEmptySlot(
-        aroundArray,
-        array,
-        checkedSquares,
-        emptySlotDiscover
-      );
-    } else if (index === width * height - 1) {
-      let aroundArray = [index - (width + 1), index - width, index - 1];
-      discoveringAroundEmptySlot(
-        aroundArray,
-        array,
-        checkedSquares,
-        emptySlotDiscover
-      );
-    } else if (index > 0 && index < width - 1) {
-      let aroundArray = [
-        index - 1,
-        index + 1,
-        index + (width - 1),
-        index + width,
-        index + (width + 1)
-      ];
-      discoveringAroundEmptySlot(
-        aroundArray,
-        array,
-        checkedSquares,
-        emptySlotDiscover
-      );
-    } else if (
-      index % width === 0 &&
-      index !== 0 &&
-      index !== width * (height - 1)
-    ) {
-      let aroundArray = [
-        index - width,
-        index - (width - 1),
-        index + 1,
-        index + width,
-        index + (width + 1)
-      ];
-      discoveringAroundEmptySlot(
-        aroundArray,
-        array,
-        checkedSquares,
-        emptySlotDiscover
-      );
-    } else if (
-      index % width === width - 1 &&
-      index !== width - 1 &&
-      index !== width * height - 1
-    ) {
-      let aroundArray = [
-        index - (width + 1),
-        index - width,
-        index - 1,
-        index + (width - 1),
-        index + width
-      ];
-      discoveringAroundEmptySlot(
-        aroundArray,
-        array,
-        checkedSquares,
-        emptySlotDiscover
-      );
-    } else if (index > width * (height - 1) && index < width * height - 1) {
-      let aroundArray = [
-        index - (width + 1),
-        index - width,
-        index - (width - 1),
-        index - 1,
-        index + 1
-      ];
-      discoveringAroundEmptySlot(
-        aroundArray,
-        array,
-        checkedSquares,
-        emptySlotDiscover
-      );
-    } else {
-      let aroundArray = [
-        index - (width + 1),
-        index - width,
-        index - (width - 1),
-        index - 1,
-        index + 1,
-        index + (width - 1),
-        index + width,
-        index + (width + 1)
-      ];
-      discoveringAroundEmptySlot(
-        aroundArray,
-        array,
-        checkedSquares,
-        emptySlotDiscover
-      );
-    }
+    let aroundArray = squareLocation(index);
+    discoveringAroundEmptySlot(
+      aroundArray,
+      array,
+      checkedSquares,
+      emptySlotDiscover
+    );
     return array;
   };
 
