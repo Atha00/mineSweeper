@@ -284,8 +284,13 @@ function App() {
 
   if (squaresValues.length > 0) {
     return (
-      <div className="main">
-        <div className="App" style={{ width: `${width * 36 + 36}px` }}>
+      <div className="main" style={{ minWidth: `${width * 36 + 100}px` }}>
+        <div
+          className="App"
+          style={{
+            width: `${width * 36 + 30}px`
+          }}
+        >
           <div style={{ width: `${width * 36}px` }}>
             <p className="header-board">{mineCounter}</p>
 
