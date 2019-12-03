@@ -20,6 +20,7 @@ function App() {
     false
   );
   const [customConditions, setCustomConditions] = useState(true);
+  const [isTheGameIsWin, setIsTheGameIsWin] = useState(false);
 
   let width = size.width;
   let height = size.height;
@@ -212,9 +213,10 @@ function App() {
           }
           setSquaresValues(rawFillingArray);
           if (revealedCount === width * height - numberOfMines) {
-            alert("Félicitations !");
             setTimerIsRunning(false);
             setEndGame(true);
+            setIsTheGameIsWin(true);
+            alert("Félicitations !");
           }
         }
       }
@@ -276,6 +278,7 @@ function App() {
     }
     setSquaresValues(emptyFilling);
     setEndGame(false);
+    setIsTheGameIsWin(false);
     setIsBoardSet(false);
     setMineCounter(numberOfMines);
     setTimerIsRunning(false);
@@ -326,6 +329,7 @@ function App() {
               setTimerIsRunning(false);
               setTime(0);
               setEndGame(false);
+              setIsTheGameIsWin(false);
               setMakeMineCounterDynamique(false);
             }}
           >
@@ -339,6 +343,7 @@ function App() {
               setTimerIsRunning(false);
               setTime(0);
               setEndGame(false);
+              setIsTheGameIsWin(false);
               setMakeMineCounterDynamique(false);
             }}
           >
@@ -352,6 +357,7 @@ function App() {
               setTimerIsRunning(false);
               setTime(0);
               setEndGame(false);
+              setIsTheGameIsWin(false);
               setMakeMineCounterDynamique(false);
             }}
           >
@@ -401,6 +407,7 @@ function App() {
                   setTimerIsRunning(false);
                   setTime(0);
                   setEndGame(false);
+                  setIsTheGameIsWin(false);
                   if (
                     parseInt(widthInputChange) >= 5 &&
                     parseInt(widthInputChange) <= 50 &&
@@ -425,10 +432,14 @@ function App() {
                 Ok
               </button>
               {customConditions ? null : (
-                <p>
-                  Les paramètres ne sont pas corrects ! Minimum 1 mine,
-                  largeur/hauteur min : 5, largeur/hauteur max : 50
-                </p>
+                <div>
+                  <p className="custom-conditions">
+                    Les paramètres ne sont pas corrects !
+                  </p>
+                  <p className="custom-conditions">Minimum 1 mine</p>
+                  <p className="custom-conditions">Largeur/Hauteur min : 5</p>
+                  <p className="custom-conditions">Largeur/Hauteur max : 50</p>
+                </div>
               )}
             </div>
           ) : null}

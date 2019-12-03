@@ -72,6 +72,11 @@
   flex-direction: column;
   align-items: space-between;
 }
+.custom-conditions {
+  color: red;
+  font-size: 14px;
+  margin: 5px 0;
+}
 .custom-modal button {
   margin: 10px;
 }
