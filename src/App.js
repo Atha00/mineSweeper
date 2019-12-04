@@ -3,6 +3,7 @@ import "./App.css";
 import Board from "./components/board";
 import RefreshIcon from "./components/refreshIcon";
 import Timer from "./components/timer";
+import WinModal from "./components/winModal";
 
 function App() {
   const [squaresValues, setSquaresValues] = useState([]);
@@ -21,6 +22,8 @@ function App() {
   );
   const [customConditions, setCustomConditions] = useState(true);
   const [isTheGameIsWin, setIsTheGameIsWin] = useState(false);
+  const [pseudo, setPseudo] = useState("");
+  const [difficulty, setDifficulty] = useState("Beginner");
 
   let width = size.width;
   let height = size.height;
@@ -288,6 +291,15 @@ function App() {
   if (squaresValues.length > 0) {
     return (
       <div className="main" style={{ minWidth: `${width * 36 + 100}px` }}>
+        {isTheGameIsWin && difficulty !== "Custom" && (
+          <WinModal
+            time={time}
+            pseudo={pseudo}
+            setPseudo={setPseudo}
+            setIsTheGameIsWin={setIsTheGameIsWin}
+            difficulty={difficulty}
+          />
+        )}
         <div
           className="App"
           style={{
@@ -328,6 +340,7 @@ function App() {
               setIsBoardSet(false);
               setTimerIsRunning(false);
               setTime(0);
+              setDifficulty("Beginner");
               setEndGame(false);
               setIsTheGameIsWin(false);
               setMakeMineCounterDynamique(false);
@@ -342,6 +355,7 @@ function App() {
               setIsBoardSet(false);
               setTimerIsRunning(false);
               setTime(0);
+              setDifficulty("Intermediate");
               setEndGame(false);
               setIsTheGameIsWin(false);
               setMakeMineCounterDynamique(false);
@@ -356,6 +370,7 @@ function App() {
               setIsBoardSet(false);
               setTimerIsRunning(false);
               setTime(0);
+              setDifficulty("Expert");
               setEndGame(false);
               setIsTheGameIsWin(false);
               setMakeMineCounterDynamique(false);
@@ -405,6 +420,7 @@ function App() {
                 onClick={() => {
                   setIsBoardSet(false);
                   setTimerIsRunning(false);
+                  setDifficulty("Custom");
                   setTime(0);
                   setEndGame(false);
                   setIsTheGameIsWin(false);

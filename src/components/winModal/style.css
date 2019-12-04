@@ -1,0 +1,23 @@
+.modal-global {
+  background-color: rgba(240, 198, 10, 0.66);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-window {
+  position: absolute;
+  color: red;
+  background-color: black;
+  width: 30%;
+  padding: 20px;
+}
+.modal-input-score {
+  display: flex;
+  justify-content: space-between;
+}
+.modal-window p {
+  text-align: center;
+}
