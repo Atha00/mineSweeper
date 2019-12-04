@@ -4,6 +4,7 @@ import Board from "./components/board";
 import RefreshIcon from "./components/refreshIcon";
 import Timer from "./components/timer";
 import WinModal from "./components/winModal";
+import ScoreBoard from "./components/scoreBoard";
 
 function App() {
   const [squaresValues, setSquaresValues] = useState([]);
@@ -290,175 +291,184 @@ function App() {
 
   if (squaresValues.length > 0) {
     return (
-      <div className="main" style={{ minWidth: `${width * 36 + 100}px` }}>
-        {isTheGameIsWin && difficulty !== "Custom" && (
-          <WinModal
-            time={time}
-            pseudo={pseudo}
-            setPseudo={setPseudo}
-            setIsTheGameIsWin={setIsTheGameIsWin}
-            difficulty={difficulty}
-          />
-        )}
-        <div
-          className="App"
-          style={{
-            width: `${width * 36 + 30}px`
-          }}
-        >
-          <div style={{ width: `${width * 36}px` }}>
-            <p className="header-board">{mineCounter}</p>
-
-            <RefreshIcon restartGame={restartGame} />
-            {timerIsRunning ? (
-              <Timer time={time} setTime={setTime} />
-            ) : (
-              <p className="header-board">{time}</p>
-            )}
-          </div>
-          {squaresValues.length === width * height ? (
-            <Board
-              width={width}
-              height={height}
-              value={squaresValues}
-              onClickSquare={showSquare}
-              onRightClickSquare={foundMine}
-              numberOfMines={numberOfMines}
-              setMineCounter={setMineCounter}
-              isBoardSet={isBoardSet}
-              makeMineCounterDynamique={makeMineCounterDynamique}
-              setMakeMineCounterDynamique={setMakeMineCounterDynamique}
+      <div className="full-content">
+        <div className="main" style={{ minWidth: `${width * 36 + 100}px` }}>
+          {isTheGameIsWin && difficulty !== "Custom" && (
+            <WinModal
+              time={time}
+              pseudo={pseudo}
+              setPseudo={setPseudo}
+              setIsTheGameIsWin={setIsTheGameIsWin}
+              difficulty={difficulty}
             />
-          ) : null}
-        </div>
-        <div className="set-difficulty">
-          <h4>Set difficulty :</h4>
-          <span
-            className="difficulty-button"
-            onClick={() => {
-              setSize({ width: 9, height: 9, numberOfMines: 10 });
-              setIsBoardSet(false);
-              setTimerIsRunning(false);
-              setTime(0);
-              setDifficulty("Beginner");
-              setEndGame(false);
-              setIsTheGameIsWin(false);
-              setMakeMineCounterDynamique(false);
+          )}
+          <div
+            className="App"
+            style={{
+              width: `${width * 36 + 30}px`
             }}
           >
-            Beginner
-          </span>
-          <span
-            className="difficulty-button"
-            onClick={() => {
-              setSize({ width: 16, height: 16, numberOfMines: 40 });
-              setIsBoardSet(false);
-              setTimerIsRunning(false);
-              setTime(0);
-              setDifficulty("Intermediate");
-              setEndGame(false);
-              setIsTheGameIsWin(false);
-              setMakeMineCounterDynamique(false);
-            }}
-          >
-            Intermediate
-          </span>
-          <span
-            className="difficulty-button"
-            onClick={() => {
-              setSize({ width: 30, height: 16, numberOfMines: 99 });
-              setIsBoardSet(false);
-              setTimerIsRunning(false);
-              setTime(0);
-              setDifficulty("Expert");
-              setEndGame(false);
-              setIsTheGameIsWin(false);
-              setMakeMineCounterDynamique(false);
-            }}
-          >
-            Expert
-          </span>
-          <span
-            className="difficulty-button"
-            onClick={() => {
-              setCustomConditions(true);
-              setCustomDial(!customDial);
-            }}
-          >
-            Custom
-          </span>
-          {customDial ? (
-            <div className="custom-modal">
-              <span>Width : </span>
-              <input
-                name="width"
-                type="number"
-                value={widthInputChange}
-                onChange={event => {
-                  setWidthInputChange(event.target.value);
-                }}
-              />
-              <span>Height : </span>
-              <input
-                name="height"
-                type="number"
-                value={heightInputChange}
-                onChange={event => {
-                  setHeightInputChange(event.target.value);
-                }}
-              />
-              <span>Mines : </span>
-              <input
-                name="mines"
-                type="number"
-                value={minesInputChange}
-                onChange={event => {
-                  setMinesInputChange(event.target.value);
-                }}
-              />
-              <button
-                onClick={() => {
-                  setIsBoardSet(false);
-                  setTimerIsRunning(false);
-                  setDifficulty("Custom");
-                  setTime(0);
-                  setEndGame(false);
-                  setIsTheGameIsWin(false);
-                  if (
-                    parseInt(widthInputChange) >= 5 &&
-                    parseInt(widthInputChange) <= 50 &&
-                    parseInt(heightInputChange) >= 5 &&
-                    parseInt(heightInputChange) <= 50 &&
-                    parseInt(minesInputChange) > 0 &&
-                    parseInt(widthInputChange) * parseInt(heightInputChange) >
-                      parseInt(minesInputChange) + 10
-                  ) {
-                    setSize({
-                      width: parseInt(widthInputChange),
-                      height: parseInt(heightInputChange),
-                      numberOfMines: parseInt(minesInputChange)
-                    });
-                    setMakeMineCounterDynamique(false);
-                    setCustomDial(false);
-                  } else {
-                    setCustomConditions(false);
-                  }
-                }}
-              >
-                Ok
-              </button>
-              {customConditions ? null : (
-                <div>
-                  <p className="custom-conditions">
-                    Les paramètres ne sont pas corrects !
-                  </p>
-                  <p className="custom-conditions">Minimum 1 mine</p>
-                  <p className="custom-conditions">Largeur/Hauteur min : 5</p>
-                  <p className="custom-conditions">Largeur/Hauteur max : 50</p>
-                </div>
+            <div style={{ width: `${width * 36}px` }}>
+              <p className="header-board">{mineCounter}</p>
+
+              <RefreshIcon restartGame={restartGame} />
+              {timerIsRunning ? (
+                <Timer time={time} setTime={setTime} />
+              ) : (
+                <p className="header-board">{time}</p>
               )}
             </div>
-          ) : null}
+            {squaresValues.length === width * height ? (
+              <Board
+                width={width}
+                height={height}
+                value={squaresValues}
+                onClickSquare={showSquare}
+                onRightClickSquare={foundMine}
+                numberOfMines={numberOfMines}
+                setMineCounter={setMineCounter}
+                isBoardSet={isBoardSet}
+                makeMineCounterDynamique={makeMineCounterDynamique}
+                setMakeMineCounterDynamique={setMakeMineCounterDynamique}
+              />
+            ) : null}
+          </div>
+          <div className="set-difficulty">
+            <h4>Set difficulty :</h4>
+            <span
+              className="difficulty-button"
+              onClick={() => {
+                setSize({ width: 9, height: 9, numberOfMines: 10 });
+                setIsBoardSet(false);
+                setTimerIsRunning(false);
+                setTime(0);
+                setDifficulty("Beginner");
+                setEndGame(false);
+                setIsTheGameIsWin(false);
+                setMakeMineCounterDynamique(false);
+              }}
+            >
+              Beginner
+            </span>
+            <span
+              className="difficulty-button"
+              onClick={() => {
+                setSize({ width: 16, height: 16, numberOfMines: 40 });
+                setIsBoardSet(false);
+                setTimerIsRunning(false);
+                setTime(0);
+                setDifficulty("Intermediate");
+                setEndGame(false);
+                setIsTheGameIsWin(false);
+                setMakeMineCounterDynamique(false);
+              }}
+            >
+              Intermediate
+            </span>
+            <span
+              className="difficulty-button"
+              onClick={() => {
+                setSize({ width: 30, height: 16, numberOfMines: 99 });
+                setIsBoardSet(false);
+                setTimerIsRunning(false);
+                setTime(0);
+                setDifficulty("Expert");
+                setEndGame(false);
+                setIsTheGameIsWin(false);
+                setMakeMineCounterDynamique(false);
+              }}
+            >
+              Expert
+            </span>
+            <span
+              className="difficulty-button"
+              onClick={() => {
+                setCustomConditions(true);
+                setCustomDial(!customDial);
+              }}
+            >
+              Custom
+            </span>
+            {customDial ? (
+              <div className="custom-modal">
+                <span>Width : </span>
+                <input
+                  name="width"
+                  type="number"
+                  value={widthInputChange}
+                  onChange={event => {
+                    setWidthInputChange(event.target.value);
+                  }}
+                />
+                <span>Height : </span>
+                <input
+                  name="height"
+                  type="number"
+                  value={heightInputChange}
+                  onChange={event => {
+                    setHeightInputChange(event.target.value);
+                  }}
+                />
+                <span>Mines : </span>
+                <input
+                  name="mines"
+                  type="number"
+                  value={minesInputChange}
+                  onChange={event => {
+                    setMinesInputChange(event.target.value);
+                  }}
+                />
+                <button
+                  onClick={() => {
+                    setIsBoardSet(false);
+                    setTimerIsRunning(false);
+                    setDifficulty("Custom");
+                    setTime(0);
+                    setEndGame(false);
+                    setIsTheGameIsWin(false);
+                    if (
+                      parseInt(widthInputChange) >= 5 &&
+                      parseInt(widthInputChange) <= 50 &&
+                      parseInt(heightInputChange) >= 5 &&
+                      parseInt(heightInputChange) <= 50 &&
+                      parseInt(minesInputChange) > 0 &&
+                      parseInt(widthInputChange) * parseInt(heightInputChange) >
+                        parseInt(minesInputChange) + 10
+                    ) {
+                      setSize({
+                        width: parseInt(widthInputChange),
+                        height: parseInt(heightInputChange),
+                        numberOfMines: parseInt(minesInputChange)
+                      });
+                      setMakeMineCounterDynamique(false);
+                      setCustomDial(false);
+                    } else {
+                      setCustomConditions(false);
+                    }
+                  }}
+                >
+                  Ok
+                </button>
+                {customConditions ? null : (
+                  <div>
+                    <p className="custom-conditions">
+                      Les paramètres ne sont pas corrects !
+                    </p>
+                    <p className="custom-conditions">Minimum 1 mine</p>
+                    <p className="custom-conditions">Largeur/Hauteur min : 5</p>
+                    <p className="custom-conditions">
+                      Largeur/Hauteur max : 50
+                    </p>
+                  </div>
+                )}
+              </div>
+            ) : null}
+          </div>
+        </div>
+        <div className="score-board-container">
+          <ScoreBoard />
+          <ScoreBoard />
+          <ScoreBoard />
         </div>
       </div>
     );

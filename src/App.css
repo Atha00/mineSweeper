@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Stardos+Stencil&display=swap");
+.full-content {
+  display: flex;
+  flex-direction: column;
+}
 .main {
   display: flex;
   flex-direction: row;
@@ -79,4 +83,9 @@
 }
 .custom-modal button {
   margin: 10px;
+}
+.score-board-container {
+  display: flex;
+  justify-content: space-around;
+  margin: auto 50px;
 }
