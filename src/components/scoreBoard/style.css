@@ -1,0 +1,5 @@
+.score-board-table {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+}

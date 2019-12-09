@@ -24,7 +24,7 @@ function App() {
   const [customConditions, setCustomConditions] = useState(true);
   const [isTheGameIsWin, setIsTheGameIsWin] = useState(false);
   const [pseudo, setPseudo] = useState("");
-  const [difficulty, setDifficulty] = useState("Beginner");
+  const [difficulty, setDifficulty] = useState("beginner");
 
   let width = size.width;
   let height = size.height;
@@ -342,7 +342,7 @@ function App() {
                 setIsBoardSet(false);
                 setTimerIsRunning(false);
                 setTime(0);
-                setDifficulty("Beginner");
+                setDifficulty("beginner");
                 setEndGame(false);
                 setIsTheGameIsWin(false);
                 setMakeMineCounterDynamique(false);
@@ -357,7 +357,7 @@ function App() {
                 setIsBoardSet(false);
                 setTimerIsRunning(false);
                 setTime(0);
-                setDifficulty("Intermediate");
+                setDifficulty("intermediate");
                 setEndGame(false);
                 setIsTheGameIsWin(false);
                 setMakeMineCounterDynamique(false);
@@ -372,7 +372,7 @@ function App() {
                 setIsBoardSet(false);
                 setTimerIsRunning(false);
                 setTime(0);
-                setDifficulty("Expert");
+                setDifficulty("expert");
                 setEndGame(false);
                 setIsTheGameIsWin(false);
                 setMakeMineCounterDynamique(false);
@@ -466,9 +466,9 @@ function App() {
           </div>
         </div>
         <div className="score-board-container">
-          <ScoreBoard />
-          <ScoreBoard />
-          <ScoreBoard />
+          <ScoreBoard difficulty={"beginners"} />
+          <ScoreBoard difficulty={"intermediates"} />
+          <ScoreBoard difficulty={"experts"} />
         </div>
       </div>
     );
