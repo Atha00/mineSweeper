@@ -20,7 +20,7 @@ function WinModal(props) {
         </div>
         <button
           onClick={() => {
-            alert("Yep !");
+            props.saveScore(props.difficulty, props.pseudo, props.time);
             props.setIsTheGameIsWin(false);
           }}
         >

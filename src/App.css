@@ -69,6 +69,23 @@
   font-weight: bold;
   font-size: 18px;
 }
+.difficulty-current {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 40px;
+  margin: 5px auto;
+  text-align: center;
+  background-color: goldenrod;
+  border-top: 3px rgb(80, 61, 13) inset;
+  border-left: 3px rgb(80, 61, 13) inset;
+  border-right: 3px LIGHTGOLDENRODYELLOW inset;
+  border-bottom: 3px LIGHTGOLDENRODYELLOW inset;
+  color: red;
+  font-weight: bold;
+  font-size: 18px;
+}
 .custom-modal {
   font-size: 16px;
   width: 180px;

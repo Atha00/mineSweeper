@@ -5,6 +5,7 @@ import RefreshIcon from "./components/refreshIcon";
 import Timer from "./components/timer";
 import WinModal from "./components/winModal";
 import ScoreBoard from "./components/scoreBoard";
+import Axios from "axios";
 
 function App() {
   const [squaresValues, setSquaresValues] = useState([]);
@@ -289,6 +290,13 @@ function App() {
     setTime(0);
   };
 
+  const saveScore = (difficulty, pseudo, time) => {
+    Axios.post("http://localhost:3001/" + difficulty + "s/new", {
+      pseudo: pseudo,
+      score: time
+    });
+  };
+
   if (squaresValues.length > 0) {
     return (
       <div className="full-content">
@@ -300,6 +308,7 @@ function App() {
               setPseudo={setPseudo}
               setIsTheGameIsWin={setIsTheGameIsWin}
               difficulty={difficulty}
+              saveScore={saveScore}
             />
           )}
           <div
@@ -336,7 +345,11 @@ function App() {
           <div className="set-difficulty">
             <h4>Set difficulty :</h4>
             <span
-              className="difficulty-button"
+              className={
+                difficulty === "beginner"
+                  ? `difficulty-current`
+                  : `difficulty-button`
+              }
               onClick={() => {
                 setSize({ width: 9, height: 9, numberOfMines: 10 });
                 setIsBoardSet(false);
@@ -351,7 +364,11 @@ function App() {
               Beginner
             </span>
             <span
-              className="difficulty-button"
+              className={
+                difficulty === "intermediate"
+                  ? `difficulty-current`
+                  : `difficulty-button`
+              }
               onClick={() => {
                 setSize({ width: 16, height: 16, numberOfMines: 40 });
                 setIsBoardSet(false);
@@ -366,7 +383,11 @@ function App() {
               Intermediate
             </span>
             <span
-              className="difficulty-button"
+              className={
+                difficulty === "expert"
+                  ? `difficulty-current`
+                  : `difficulty-button`
+              }
               onClick={() => {
                 setSize({ width: 30, height: 16, numberOfMines: 99 });
                 setIsBoardSet(false);
@@ -381,7 +402,11 @@ function App() {
               Expert
             </span>
             <span
-              className="difficulty-button"
+              className={
+                difficulty === "Custom"
+                  ? `difficulty-current`
+                  : `difficulty-button`
+              }
               onClick={() => {
                 setCustomConditions(true);
                 setCustomDial(!customDial);
