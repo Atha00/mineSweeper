@@ -20,8 +20,19 @@ function WinModal(props) {
         </div>
         <button
           onClick={() => {
-            props.saveScore(props.difficulty, props.pseudo, props.time);
-            props.setIsTheGameIsWin(false);
+            let reg = /^[a-zàäâéèêëïîöôùüû\s]*$/i;
+            if (reg.test(props.pseudo)) {
+              if (props.pseudo.length >= 3 && props.pseudo.length <= 10) {
+                props.saveScore(props.difficulty, props.pseudo, props.time);
+                props.setIsTheGameIsWin(false);
+              } else {
+                alert("Your nick name don't got right length (min 3, max 10)");
+              }
+            } else {
+              alert(
+                "Please avoid all special characters from your nick name !"
+              );
+            }
           }}
         >
           Valider
