@@ -1,5 +1,31 @@
 .score-board-table {
   display: flex;
   justify-content: space-between;
-  width: 300px;
+  width: 90%;
+  min-width: 180px;
+}
+.score-board-leader-line {
+  color: red;
+  padding: 0 10px;
+}
+.score-board-line {
+  padding: 0 10px;
+}
+.score-board-section {
+  margin: 0 10px;
+}
+.score-board-separator {
+  border-right: 1px solid black;
+}
+.score-board-title {
+  text-align: center;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+}
+.background-score-light {
+  background-color: lightgoldenrodyellow;
+}
+.background-score {
+  background-color: gold;
 }

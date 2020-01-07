@@ -104,5 +104,8 @@
 .score-board-container {
   display: flex;
   justify-content: space-around;
-  margin: auto 50px;
+  margin: 10px 50px;
+  background-color: gold;
+  padding: 20px;
+  min-width: 610px;
 }

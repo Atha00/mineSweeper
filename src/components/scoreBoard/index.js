@@ -21,16 +21,32 @@ function ScoreBoard(props) {
     return <p>Loading...</p>;
   } else {
     return (
-      <div>
-        <h4>Meilleurs scores {props.difficulty}</h4>
-        {scoreBoard.map((element, index) => {
-          return (
-            <div className="score-board-table" key={index}>
-              <span>{element.pseudo}</span>
-              <span>{element.score}</span>
-            </div>
-          );
-        })}
+      <div style={{ width: "100%" }}>
+        <h4 className="score-board-title">High scores {props.difficulty}</h4>
+        <div
+          className={`score-board-section ${
+            props.difficulty === "experts" ? null : "score-board-separator"
+          }`}
+        >
+          {scoreBoard.map((element, index) => {
+            return (
+              <div
+                className={`score-board-table ${
+                  index === 0 ? "score-board-leader-line" : "score-board-line"
+                } ${
+                  index % 2 === 0
+                    ? "background-score-light"
+                    : "background-score"
+                }`}
+                key={index}
+              >
+                <span>{index + 1}.</span>
+                <span>{element.pseudo}</span>
+                <span>{element.score + " sec"}</span>
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
