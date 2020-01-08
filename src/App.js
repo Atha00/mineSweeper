@@ -291,10 +291,13 @@ function App() {
   };
 
   const saveScore = (difficulty, pseudo, time) => {
-    Axios.post("http://localhost:3001/" + difficulty + "s/new", {
-      pseudo: pseudo,
-      score: time
-    });
+    Axios.post(
+      "https://mine-sweeper-back.herokuapp.com/" + difficulty + "s/new",
+      {
+        pseudo: pseudo,
+        score: time
+      }
+    );
   };
 
   if (squaresValues.length > 0) {

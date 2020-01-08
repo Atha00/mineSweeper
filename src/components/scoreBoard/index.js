@@ -9,7 +9,7 @@ function ScoreBoard(props) {
   useEffect(() => {
     const fetch = async () => {
       const response = await Axios.get(
-        "http://localhost:3001/" + props.difficulty
+        "https://mine-sweeper-back.herokuapp.com/" + props.difficulty
       );
       setScoreBoard(response.data);
       setIsLoading(false);
@@ -40,7 +40,9 @@ function ScoreBoard(props) {
                 }`}
                 key={index}
               >
-                <span>{index + 1}.</span>
+                <span style={{ width: "25px", textAlign: "right" }}>
+                  {index + 1}.
+                </span>
                 <span>{element.pseudo}</span>
                 <span>{element.score + " sec"}</span>
               </div>

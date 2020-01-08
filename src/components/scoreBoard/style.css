@@ -3,6 +3,7 @@
   justify-content: space-between;
   width: 90%;
   min-width: 180px;
+  font-family: "Stardos Stencil", cursive;
 }
 .score-board-leader-line {
   color: red;
@@ -22,6 +23,7 @@
   height: 40px;
   margin: 0;
   padding: 0;
+  font-family: "Stardos Stencil", cursive;
 }
 .background-score-light {
   background-color: lightgoldenrodyellow;
