@@ -303,6 +303,7 @@ function App() {
   if (squaresValues.length > 0) {
     return (
       <div className="full-content">
+        <h1>MineSweeper React JS 16.11.0 - by AthA -</h1>
         <div className="main" style={{ minWidth: `${width * 36 + 100}px` }}>
           {isTheGameIsWin && difficulty !== "Custom" && (
             <WinModal
